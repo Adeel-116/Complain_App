@@ -1,6 +1,8 @@
 import { StyleSheet, View, Image, Text } from 'react-native';
 import Circle from '../../components/Circle';
 import colors from '../../constants/color';
+import Icon from 'react-native-vector-icons/Feather';
+
 const DashBoard = () => {
   return (
     <View style={styles.container}>
@@ -10,9 +12,10 @@ const DashBoard = () => {
         </View>
 
          <View style={styles.innerContainer}>
-      {/* Left - Colored Box with Hamburger Icon */}
+
+        {/* Left - Icon Box */}
       <View style={styles.iconBox}>
-        <Icon name="menu" size={24} color="#fff" />
+        <Icon name="menu" size={24} color={'#fafafa'} />
       </View>
 
       {/* Center - Text */}
@@ -22,10 +25,15 @@ const DashBoard = () => {
 
       {/* Right - Profile Image */}
       <Image
-        source={{ uri: 'https://via.placeholder.com/40' }}
-        style={styles.profileImage}
-      />
-    </View>
+  source={require('../../assests/images/profile.png')}
+  style={styles.profileImage}
+/>
+        </View>
+
+
+        <View style={styles.innerContainerCard}>
+
+        </View>
 
 
       </View>
@@ -34,7 +42,7 @@ const DashBoard = () => {
       <View style={styles.container2}>
 
         <View style={styles.circleContainerBottom}>
-          <Circle size={200} color={colors.primary}  />
+          <Circle size={300} color={colors.primary}  />
         </View>
 
       </View>
@@ -54,6 +62,7 @@ const styles = StyleSheet.create({
   container1: {
     width: '100%',
     flex: 2/3,
+    
     // backgroundColor: 'blue',
   },
   container2: {
@@ -64,28 +73,29 @@ const styles = StyleSheet.create({
   },
   circleContainerTop: {
     position: 'absolute',
-    right: '-25%',
+    right: '-35%',
     top: '-15%',
   },
   circleContainerBottom:{
     position: 'absolute',
     bottom: '0%',
-    top: '90%',
-    left: '-10%',
+    top: '70%',
+    left: '-50%',
   },
   innerContainer: {
     width: '100%',
     height: 70,
-    paddingHorizontal: 16,
-    backgroundColor: '#F5F9FF',
+    // backgroundColor: '#F5F9FF',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginTop: 10,
+      paddingHorizontal: 15,
   },
   iconBox: {
     width: 40,
     height: 40,
-    backgroundColor: '#0096FF',
+    backgroundColor: colors.secondary,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
@@ -96,13 +106,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: '#1A1A1A',
+    color: colors.textPrimary,
     fontWeight: 'bold',
   },
   profileImage: {
     width: 40,
     height: 40,
     borderRadius: 20,
+    backgroundColor: 'pink'
   },
-
+  innerContainerCard:{
+    width: '100%',
+    paddingHorizontal: 15,
+    backgroundColor: colors.primary,
+  }
 });
