@@ -1,13 +1,16 @@
 import React from 'react';
 import { View, StyleSheet, ViewStyle } from 'react-native';
-import colors from '../constants/color';
+import appColors from '../constants/color';
+
+
+
 interface CircleProps {
   size?: number;
   color?: string;
   style?: ViewStyle;
 }
 
-const Circle: React.FC<CircleProps> = ({ size = 100, color = colors.primary, style }) => {
+const Circle: React.FC<CircleProps> = ({ size = 100, color = appColors.primary, style }) => {
   return (
     <View
       style={[

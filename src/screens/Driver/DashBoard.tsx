@@ -1,14 +1,44 @@
 import { StyleSheet, View, Image, Text } from 'react-native';
 import Circle from '../../components/Circle';
-import colors from '../../constants/color';
+import appColors from '../../constants/color';
 import Icon from 'react-native-vector-icons/Feather';
 
 const DashBoard = () => {
+
+interface StatCardData {
+  image: any;       
+  total: number;
+  label: string;
+}
+
+const cardData: StatCardData[] = [
+  {
+    image: require('../../assests/icons/complain-icon.png'),
+    total: 15,
+    label: 'Total Complaints',
+  },
+  {
+    image: require('../../assests/icons/pending-icon.png'),
+    total: 159,
+    label: 'Total Pending',
+  },
+  {
+    image: require('../../assests/icons/total-resolve-icon.png'),
+    total: 15,
+    label: 'Total Resolve',
+  },
+  {
+    image: require('../../assests/icons/progress-icon.png'),
+    total: 15,
+    label: 'In Progress',
+  },
+];
+
   return (
     <View style={styles.container}>
       <View style={styles.container1}>
         <View style={styles.circleContainerTop}>
-          <Circle size={260} color={colors.primary} />
+          <Circle size={260} color={appColors.primary} />
         </View>
 
          <View style={styles.innerContainer}>
@@ -32,7 +62,9 @@ const DashBoard = () => {
 
 
         <View style={styles.innerContainerCard}>
-
+            <View>
+                
+            </View>
         </View>
 
 
@@ -42,10 +74,12 @@ const DashBoard = () => {
       <View style={styles.container2}>
 
         <View style={styles.circleContainerBottom}>
-          <Circle size={300} color={colors.primary}  />
+          <Circle size={300} color={appColors.primary}  />
         </View>
 
       </View>
+
+
     </View>
   );
 };
@@ -95,7 +129,7 @@ const styles = StyleSheet.create({
   iconBox: {
     width: 40,
     height: 40,
-    backgroundColor: colors.secondary,
+    backgroundColor: appColors.secondary,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 10,
@@ -106,7 +140,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18,
-    color: colors.textPrimary,
+    color: appColors.textPrimary,
     fontWeight: 'bold',
   },
   profileImage: {
@@ -118,6 +152,25 @@ const styles = StyleSheet.create({
   innerContainerCard:{
     width: '100%',
     paddingHorizontal: 15,
-    backgroundColor: colors.primary,
+    backgroundColor: 'yellow',
+  },
+  cardContainer:{
+    width: '45%',
+    height: 100,
+    borderRadius: 10,
+    backgroundColor: appColors.secondary,
+  },
+  para:{
+    width: '100%',
+    flexDirection: 'row'
+  },
+  cardIcon:{
+    width: 40,
+    height: 40,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    
   }
 });

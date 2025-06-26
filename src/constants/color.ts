@@ -12,7 +12,7 @@ export interface AppColors {
   warning: string;
 }
 
-const colors: AppColors = {
+const appColors: AppColors = {
   primary: '#0A5D65',      // Blue Sky
   secondary: '#0A3B40',    // Mint Green
   background: '#F5F9FF',   // Light Cloud
@@ -26,4 +26,4 @@ const colors: AppColors = {
   warning: '#FF9500',
 };
 
-export default colors;
+export default appColors;
