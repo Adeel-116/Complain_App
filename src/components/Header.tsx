@@ -1,20 +1,22 @@
-import React from 'react';
-import { View, StyleSheet, Image, Text, Dimensions } from 'react-native';
+import React,{useState} from 'react';
+import { View, StyleSheet, Image, Text, Dimensions, TouchableOpacity, Modal} from 'react-native';
 import appColors from '../constants/color';
 import Icon from 'react-native-vector-icons/Feather';
-
+import CustomDrawer from './CustomDrawer';
 const { width, height } = Dimensions.get('window');
 
 const Header = () => {
+ const [drawerVisible, setDrawerVisible] = useState<boolean>(false);
   const iconSize = width * 0.06; // ~24 on normal phones
   const boxSize = width * 0.1;   // ~40px on normal phones
 
   return (
+    <>
     <View style={styles.innerContainer}>
       {/* Left - Icon Box */}
-      <View style={[styles.iconBox, { width: boxSize, height: boxSize }]}>
-        <Icon name="menu" size={iconSize} color={'#fafafa'} />
-      </View>
+       <TouchableOpacity onPress={() => setDrawerVisible(true)} style={[styles.iconBox, { width: boxSize, height: boxSize }]}>
+          <Icon name="menu" size={iconSize} color={'#fafafa'} />
+        </TouchableOpacity>
 
       {/* Center - Text */}
       <View style={styles.textContainer}>
@@ -27,6 +29,11 @@ const Header = () => {
         style={[styles.profileImage, { width: boxSize, height: boxSize, borderRadius: boxSize / 2 }]}
       />
     </View>
+
+     <Modal visible={drawerVisible} transparent animationType="slide">
+        <CustomDrawer onClose={() => setDrawerVisible(false)} />
+      </Modal>
+      </>
   );
 };
 
