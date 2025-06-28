@@ -1,3 +1,5 @@
+// components/CustomDrawer.tsx
+
 import React from 'react';
 import {
   View,
@@ -7,8 +9,9 @@ import {
   Image,
   Dimensions,
 } from 'react-native';
-import appColors from '../constants/color';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import DrawerMenuItem from './DrawerMenuItem';
+import appColors from '../constants/color';
 
 const { width, height } = Dimensions.get('window');
 const DRAWER_WIDTH = width * 0.8;
@@ -24,6 +27,7 @@ const CustomDrawer = ({
     <Animated.View
       style={[styles.drawer, { transform: [{ translateX: slideAnim }] }]}
     >
+      {/* Header */}
       <View style={styles.drawerHeaderContainer}>
         <View style={styles.contentContainer}>
           <View style={styles.profileInfo}>
@@ -31,11 +35,9 @@ const CustomDrawer = ({
               source={require('../assests/images/profile-picture3.jpg')}
               style={styles.profileImage}
             />
-            
             <View style={styles.profileTextContainer}>
               <Text style={styles.nameText}>Sam Jack</Text>
               <Text style={styles.roleText}>Driver</Text>
-              
               <View style={styles.locationContainer}>
                 <Icon name="location-on" size={16} color="#fafafa" />
                 <Text style={styles.locationText} numberOfLines={2}>
@@ -45,6 +47,29 @@ const CustomDrawer = ({
             </View>
           </View>
         </View>
+      </View>
+
+      {/* Menu Items */}
+      <View style={styles.menuSection}>
+        <DrawerMenuItem
+          backgroundColor={appColors.primary}
+          text="Dashboard"
+          iconImage={require('../assests/images/menu-icon-dashboard.png')}
+
+          onPress={() => {
+            console.log('Dashboard pressed');
+            closeDrawer();
+          }}
+        />
+
+        <DrawerMenuItem
+          backgroundColor={appColors.secondary}
+          text="Complain"
+          iconImage={require('../assests/images/complain-icon.png')}
+          dropdown
+        />
+
+  
       </View>
     </Animated.View>
   );
@@ -102,16 +127,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   nameText: {
-    fontSize: width * 0.062,
+    fontSize: width * 0.06,
     color: '#ffffff',
     fontWeight: '700',
     letterSpacing: 0.3,
   },
   roleText: {
-    fontSize: width * 0.053,
+    fontSize: width * 0.05,
     color: 'rgba(255, 255, 255, 0.85)',
     fontWeight: '500',
-    marginBottom: 10,
+    marginBottom: 8,
   },
   locationContainer: {
     flexDirection: 'row',
@@ -121,9 +146,14 @@ const styles = StyleSheet.create({
   },
   locationText: {
     color: 'rgba(255, 255, 255, 0.9)',
-    fontSize: width * 0.029,
+    fontSize: width * 0.03,
     fontWeight: '400',
     lineHeight: 18,
     flex: 1,
+  },
+  menuSection: {
+    flex: 1,
+    width: '80%',
+    paddingTop: 20,
   },
 });
