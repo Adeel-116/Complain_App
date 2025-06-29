@@ -5,12 +5,13 @@ import ScannerScreen from './src/screens/Driver/ScannerScreen';
 import NumberScreen from './src/screens/Driver/NumberScreen';
 import VehicleInfoScreen from './src/screens/Driver/VehicleInfoScreen';
 import ComplainScreen from './src/screens/Driver/ComplainScreen';
+import ComplainDetails from './src/screens/Driver/ComplainDetails';
 function App() {
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-       <ComplainScreen/>
+       <ComplainDetails/>
     </View>
   );
 }
