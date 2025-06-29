@@ -7,22 +7,33 @@ const { width, height } = Dimensions.get('window');
 
 interface HeaderProps {
   onMenuPress: () => void;
+   title?: string;
+  iconColor?: string;
+  titleColor?: string;
+  iconBgColor?: string;
 }
 
-const Header = ({ onMenuPress }: HeaderProps) => {
+const Header = ({
+  onMenuPress,
+  title = "Default Title",
+  iconColor = "#ffff",    
+  titleColor = "#000", 
+  iconBgColor = appColors.secondary,
+}: HeaderProps) =>
+  { 
   const iconSize = width * 0.06;
   const boxSize = width * 0.1;
 
   return (
     <View style={styles.innerContainer}>
       {/* Left - Icon Box */}
-      <TouchableOpacity onPress={onMenuPress} style={[styles.iconBox, { width: boxSize, height: boxSize }]}>
-        <Icon name="menu" size={iconSize} color="#fafafa" />
+      <TouchableOpacity onPress={onMenuPress} style={[styles.iconBox, { width: boxSize, height: boxSize, backgroundColor: iconBgColor }]}>
+        <Icon name="menu" size={iconSize} color={iconColor} />
       </TouchableOpacity>
 
       {/* Center - Title */}
-      <View style={styles.textContainer}>
-        <Text style={styles.title}>Dashboard</Text>
+       <View style={styles.textContainer}>
+        <Text style={[styles.title, {color: titleColor}]}>{title}</Text>
       </View>
 
       {/* Right - Profile Image */}
@@ -47,7 +58,6 @@ const styles = StyleSheet.create({
   },
   iconBox: {
     borderRadius: 10,
-    backgroundColor: appColors.secondary,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -56,7 +66,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    color: '#000000',
     fontSize: width * 0.045,
     fontWeight: 'bold',
   },

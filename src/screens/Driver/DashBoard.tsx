@@ -81,6 +81,7 @@ const DashBoard = () => {
   ];
 
   return (
+    <>
     <View style={styles.container}>
       {/* Background Circles */}
       <View style={styles.circleContainerTop}>
@@ -91,7 +92,7 @@ const DashBoard = () => {
       </View>
 
       {/* Header */}
-      <Header onMenuPress={toggleDrawer} />
+      <Header onMenuPress={toggleDrawer} title={"Dashboard"}/>
 
       <ScrollView>
         <View style={styles.container1}>
@@ -115,6 +116,7 @@ const DashBoard = () => {
         </View>
       </ScrollView>
 
+      </View>
       {/* Overlay */}
       {isDrawerOpen && (
         <Animated.View style={[styles.overlay, { opacity: overlayOpacity }]}>
@@ -124,7 +126,7 @@ const DashBoard = () => {
 
       {/* Drawer Component */}
       <CustomDrawer slideAnim={slideAnim} closeDrawer={closeDrawer} />
-    </View>
+    </>
   );
 };
 
