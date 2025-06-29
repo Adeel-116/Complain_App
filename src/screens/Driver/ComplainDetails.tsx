@@ -6,9 +6,9 @@ import {
     Animated,
     TouchableOpacity,
     Image,
-    FlatList, // Use FlatList from react-native instead of gesture-handler
+    FlatList,
+    ScrollView,
 } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler'; // Keep ScrollView from gesture-handler if needed
 import Circle from '../../components/Circle';
 import appColors from '../../constants/color';
 import Header from '../../components/Header';
@@ -16,8 +16,8 @@ import CustomDrawer from '../../components/CustomDrawer';
 
 const { width, height } = Dimensions.get('window');
 const DRAWER_WIDTH = width * 0.8;
-const IMAGE_WIDTH = width * 0.85;
-const IMAGE_HEIGHT = 200;
+const IMAGE_WIDTH = width * 0.8;
+const IMAGE_HEIGHT = 210;
 
 const ComplainDetails = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -150,7 +150,6 @@ const ComplainDetails = () => {
                                 onScroll={handleScroll}
                                 onMomentumScrollEnd={handleScrollEnd}
                                 scrollEventThrottle={16}
-                                contentContainerStyle={styles.flatListContent}
                                 bounces={false}
                                 scrollEnabled={true}
                                 nestedScrollEnabled={true}
@@ -158,7 +157,7 @@ const ComplainDetails = () => {
                             {renderPagination()}
                         </View>
                         
-                        {/* Additional content can go here */}
+            
                         <View style={styles.additionalContent}>
                             {/* Add your other components here */}
                         </View>
@@ -216,13 +215,11 @@ const styles = StyleSheet.create({
     },
     sliderContainer: {
         width: '100%',
-        height: IMAGE_HEIGHT + 60, // Extra space for pagination
+        height: IMAGE_HEIGHT + 30, 
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 20,
-    },
-    flatListContent: {
-        paddingHorizontal: (width - IMAGE_WIDTH) / 2,
+        marginBottom: 10,
+        marginTop: 10,
     },
     imageContainer: {
         width: IMAGE_WIDTH,
@@ -237,8 +234,8 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        backgroundColor: '#fff',
-        marginHorizontal: 0,
+        backgroundColor: '#ffff',
+        marginRight: 10,
     },
     image: {
         width: '100%',
