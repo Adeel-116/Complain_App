@@ -1,0 +1,146 @@
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  ScrollView,
+} from 'react-native';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import appColors from '../constants/color'; // Adjust path if needed
+
+const options = [
+  'Engine Tuning',
+  'Brake Failure',
+  'Oil Change',
+  'Battery Low',
+  'Tyre Pressure',
+  'Engine Service',
+  'AC Cooling Issue',
+  'Fuel Leakage',
+  'Clutch Replacement',
+  'Suspension Repair',
+];
+
+const CustomDropdown = () => {
+  const [showOptions, setShowOptions] = useState(false);
+  const [selectedOption, setSelectedOption] = useState('Categories');
+
+  const toggleDropdown = () => {
+    setShowOptions(!showOptions);
+  };
+
+  const handleSelect = (option: string) => {
+    setSelectedOption(option);
+    setShowOptions(false);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Pressable onPress={toggleDropdown} style={styles.dropdown}>
+        <Text style={styles.selectedText}>{selectedOption}</Text>
+        <AntDesign name={showOptions ? 'up' : 'down'} size={18} color="#666" />
+      </Pressable>
+
+      {showOptions && (
+        <View style={styles.optionsContainer}>
+          <ScrollView
+            nestedScrollEnabled
+            showsVerticalScrollIndicator={false}
+            style={styles.scrollView}
+          >
+            {options.map((item, index) => (
+              <Pressable
+                key={index}
+                style={[
+                  styles.optionItem,
+                  index === options.length - 1 && styles.lastOptionItem
+                ]}
+                onPress={() => handleSelect(item)}
+              >
+                <Text style={styles.optionText}>{item}</Text>
+                {index !== options.length - 1 && (
+                  <View style={styles.customLine} />
+                )}
+              </Pressable>
+            ))}
+          </ScrollView>
+        </View>
+      )}
+    </View>
+  );
+};
+
+export default CustomDropdown;
+
+const styles = StyleSheet.create({
+  container: {
+    width: '100%',
+    alignSelf: 'center',
+    position: 'relative',
+    zIndex: 1000,
+  },
+  dropdown: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    borderRadius: 25,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2,
+  },
+  selectedText: {
+    color: '#333',
+    fontSize: 16,
+    fontWeight: '500',
+    flex: 1,
+  },
+  optionsContainer: {
+    backgroundColor: '#fff',
+    borderRadius: 12,
+    marginTop: 6,
+    maxHeight: 200,
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 4,
+  },
+  scrollView: {
+    paddingVertical: 8,
+  },
+  optionItem: {
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+    minHeight: 48,
+  },
+  lastOptionItem: {
+    paddingBottom: 16,
+  },
+  optionText: {
+    fontSize: 15,
+    
+    color: '#333',
+    fontWeight: '400',
+    textAlignVertical: 'center',
+    lineHeight: 20,
+  },
+  customLine: {
+    height: 1,
+    backgroundColor: '#E5E5E5',
+    marginTop: 16,
+    marginHorizontal: 0,
+  },
+});

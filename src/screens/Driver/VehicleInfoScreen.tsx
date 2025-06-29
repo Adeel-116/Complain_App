@@ -5,16 +5,30 @@ import {
     StyleSheet,
     Animated,
     TouchableOpacity,
-    TextInput,
+    Text,
+    Image,
+    FlatList,
+    ScrollView,
 } from 'react-native';
 import Circle from '../../components/Circle';
 import appColors from '../../constants/color';
 import Header from '../../components/Header';
 import CustomDrawer from '../../components/CustomDrawer';
 import CustomButton from '../../components/CustomButton';
+import CustomDropdown from '../../components/CustomDropdown';
+import CustomTextArea from '../../components/CustomTextArea';
 
 const { width, height } = Dimensions.get('window');
 const DRAWER_WIDTH = width * 0.8;
+
+const vehicleData = [
+    { id: '1', label: 'Model Number', value: '2025', icon: require('../../assests/images/model-number.png') },
+    { id: '2', label: 'Engine Type', value: 'Hybrid', icon: require('../../assests/images/model-number.png') },
+    { id: '3', label: 'Color', value: 'Black', icon: require('../../assests/images/model-number.png') },
+    { id: '4', label: 'Registration', value: 'ABC-1234', icon: require('../../assests/images/model-number.png') },
+    { id: '5', label: 'Owner', value: 'John Doe', icon: require('../../assests/images/model-number.png') },
+    { id: '6', label: 'Chassis No.', value: 'XYZ7890', icon: require('../../assests/images/model-number.png') },
+];
 
 const VehicleInfoScreen = () => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -54,10 +68,18 @@ const VehicleInfoScreen = () => {
 
     const toggleDrawer = () => (isDrawerOpen ? closeDrawer() : openDrawer());
 
+    const renderCard = ({ item }: any) => (
+        <View style={styles.card}>
+            <Text style={styles.cardLabel}>{item.label}</Text>
+            <Image source={item.icon} style={styles.iconImage} />
+            <Text style={styles.cardValue}>{item.value}</Text>
+        </View>
+    );
+
     return (
         <>
-            <View style={styles.container}>
-                {/* Background Circles */}
+            <ScrollView style={styles.container}>
+                {/* Decorative Circles */}
                 <View style={styles.circleContainerTop}>
                     <Circle size={width * 0.6} color={'white'} />
                 </View>
@@ -68,26 +90,41 @@ const VehicleInfoScreen = () => {
                 {/* Header */}
                 <Header
                     onMenuPress={toggleDrawer}
-                    title={"Create New"}
-                    titleColor={"#fff"}
-                    iconBgColor={'#fff'}
+                    title="Create New"
+                    titleColor="#fff"
+                    iconBgColor="#fff"
                     iconColor={appColors.primary}
                 />
 
-                {/* Centered Input */}
-                <View style={styles.inputContainer}>
-                    <TextInput
-                        style={styles.textInput}
-                        placeholder="ABC 123"
-                        placeholderTextColor="#666"
+                {/* Vehicle Info Grid */}
+                <View style={styles.vehicleInfoContainer}>
+                    <FlatList
+                        data={vehicleData}
+                        renderItem={renderCard}
+                        keyExtractor={item => item.id}
+                        numColumns={2}
+                        columnWrapperStyle={styles.cardRow}
+                        contentContainerStyle={{ paddingBottom: 20 }}
+                        showsVerticalScrollIndicator={false}
                     />
-
-
-                    <View style={styles.buttonContainer}>
-                        <CustomButton ButtonTitle='Enter'/>
-                    </View>
                 </View>
-            </View>
+                <View style={{ paddingHorizontal: 20, }}>
+                    <CustomDropdown />
+                </View>
+                <View style={{ paddingHorizontal: 20, }}>
+                    <CustomTextArea
+                        placeholder="Write Discription...."
+                        onChangeText={(text) => console.log(text)}
+                    />
+                </View>
+                <View style={{ paddingHorizontal: 20, marginTop: 15, }}>
+                    <CustomButton ButtonTitle='Add' />
+                </View>
+                <View style={{ paddingHorizontal: 20, marginTop: 15 }}>
+                    <CustomButton ButtonTitle='Submit' />
+                </View>
+
+            </ScrollView>
 
             {/* Overlay */}
             {isDrawerOpen && (
@@ -104,7 +141,6 @@ const VehicleInfoScreen = () => {
 
 export default VehicleInfoScreen;
 
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -112,7 +148,7 @@ const styles = StyleSheet.create({
     },
     circleContainerTop: {
         position: 'absolute',
-        right: -width * 0.30,
+        right: -width * 0.3,
         top: -height * 0.06,
     },
     circleContainerBottom: {
@@ -120,24 +156,45 @@ const styles = StyleSheet.create({
         top: '80%',
         left: -width * 0.6,
     },
-    inputContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+    vehicleInfoContainer: {
+        marginTop: 50,
+        paddingHorizontal: 20,
+        // backgroundColor: 'yellow',
     },
-    textInput: {
-        width: '85%',
-        height: 45,
+    cardRow: {
+        justifyContent: 'space-between',
+        marginBottom: 10,
+    },
+    card: {
         backgroundColor: '#fff',
-        borderRadius: 30,
-        paddingHorizontal: 25,
-        fontSize: 15,
-        color: '#000',
-        elevation: 3,
+        width: (width - 60) / 2,
+        borderRadius: 12,
+        borderWidth: 1,
+        borderColor: '#e5e5e5',
+        alignItems: 'center',
+        padding: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 2, height: 2 },
+        shadowOpacity: 0.1,
+        shadowRadius: 4,
+        elevation: 5,
     },
-    buttonContainer:{
-         width: '85%',
-         marginTop: 30,
+    iconImage: {
+        width: 50,
+        height: 50,
+        resizeMode: 'contain',
+    },
+    cardLabel: {
+        fontSize: 15,
+        fontWeight: 'bold',
+        color: '#333',
+        textAlign: 'center',
+    },
+    cardValue: {
+        fontSize: 14,
+        color: '#000',
+        textAlign: 'center',
+        fontWeight: 500,
     },
     overlay: {
         position: 'absolute',
@@ -150,3 +207,4 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
+

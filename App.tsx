@@ -3,12 +3,13 @@ import { StatusBar, StyleSheet, View } from 'react-native';
 import CreateNew from './src/screens/Driver/CreateNew';
 import ScannerScreen from './src/screens/Driver/ScannerScreen';
 import NumberScreen from './src/screens/Driver/NumberScreen';
+import VehicleInfoScreen from './src/screens/Driver/VehicleInfoScreen';
 function App() {
 
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" />
-       <NumberScreen/>
+       <VehicleInfoScreen/>
     </View>
   );
 }
