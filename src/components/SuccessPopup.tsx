@@ -22,12 +22,10 @@ const SuccessPopup = ({ visible, onClose, title = "Submit Successful" }:any) => 
       <Pressable style={styles.overlay} onPress={onClose}>
         <View style={styles.container}>
           <Pressable style={styles.popup} onPress={() => {}}>
-            {/* Success Icon */}
             <View style={styles.iconContainer}>
               <AntDesign name="check" size={32} color="#FFFFFF" />
             </View>
             
-            {/* Success Text */}
             <Text style={styles.successText}>{title}</Text>
           </Pressable>
         </View>
