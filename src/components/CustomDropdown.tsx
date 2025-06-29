@@ -7,7 +7,6 @@ import {
   ScrollView,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
-import appColors from '../constants/color'; // Adjust path if needed
 
 const options = [
   'Engine Tuning',
@@ -46,7 +45,7 @@ const CustomDropdown = () => {
         <View style={styles.optionsContainer}>
           <ScrollView
             nestedScrollEnabled
-            showsVerticalScrollIndicator={false}
+            showsVerticalScrollIndicator={true}
             style={styles.scrollView}
           >
             {options.map((item, index) => (
@@ -54,14 +53,11 @@ const CustomDropdown = () => {
                 key={index}
                 style={[
                   styles.optionItem,
-                  index === options.length - 1 && styles.lastOptionItem
+
                 ]}
                 onPress={() => handleSelect(item)}
               >
                 <Text style={styles.optionText}>{item}</Text>
-                {index !== options.length - 1 && (
-                  <View style={styles.customLine} />
-                )}
               </Pressable>
             ))}
           </ScrollView>
@@ -118,29 +114,21 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
   },
   scrollView: {
-    paddingVertical: 8,
+//    backgroundColor: 'pink'
   },
   optionItem: {
-    paddingVertical: 16,
-    paddingHorizontal: 20,
-    justifyContent: 'center',
-    minHeight: 48,
-  },
-  lastOptionItem: {
-    paddingBottom: 16,
+  // backgroundColor: 'blue',
+  paddingVertical: 15,
+  marginHorizontal: 10,
+  paddingHorizontal: 10,
+  borderBottomWidth: 1,
+  borderBottomColor: '#D2D3D0',
   },
   optionText: {
     fontSize: 15,
-    
-    color: '#333',
-    fontWeight: '400',
+    color: '#000',
+    fontWeight: '500',
     textAlignVertical: 'center',
     lineHeight: 20,
-  },
-  customLine: {
-    height: 1,
-    backgroundColor: '#E5E5E5',
-    marginTop: 16,
-    marginHorizontal: 0,
   },
 });
