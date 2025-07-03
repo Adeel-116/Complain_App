@@ -72,9 +72,11 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: 'bold',
     color: 'white',
+    fontFamily: "Montserrat Black"
   },
   labelText: {
     fontSize: 14,
     color: '#fff',
+    fontFamily: "Montserrat Black",
   },
 });

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useCallback, useMemo } from 'react';
 import {
     View,
     Dimensions,
@@ -7,34 +7,121 @@ import {
     TouchableOpacity,
     Image,
     FlatList,
-    ScrollView,
+    Text, 
+    ScrollView
 } from 'react-native';
 import Circle from '../../components/Circle';
 import appColors from '../../constants/color';
 import Header from '../../components/Header';
 import CustomDrawer from '../../components/CustomDrawer';
 
+
 const { width, height } = Dimensions.get('window');
 const DRAWER_WIDTH = width * 0.8;
 const IMAGE_WIDTH = width * 0.8;
 const IMAGE_HEIGHT = 210;
+const CARD_WIDTH = width * 0.38;
 
-const ComplainDetails = () => {
+// Sample data - move to separate file in real app
+const MOCK_IMAGES = [
+    { id: '1', imageURL: require("../../assests/images/truckImage.png") },
+    { id: '2', imageURL: require("../../assests/images/truckImage.png") },
+    { id: '3', imageURL: require("../../assests/images/truckImage.png") },
+];
+
+const MOCK_COMPLAIN_INFO = [
+    {
+        id: '1',
+        heading: 'Driver Name',
+        iconImage: require('../../assests/images/driver-icon.png'),
+        text: 'John Carter'
+    },
+    {
+        id: '2',
+        heading: 'Contact Number',
+        iconImage: require('../../assests/images/phone-number.png'),
+        text: '+1 555-9876'
+    },
+    {
+        id: '3',
+        heading: 'Vehicle No',
+        iconImage: require('../../assests/images/vehicle.png'),
+        text: 'ABC-1234'
+    },
+    {
+        id: '4',
+        heading: 'Date',
+        iconImage: require('../../assests/images/date.png'),
+        text: '2024-01-15'
+    },
+    {
+        id: '5',
+        heading: 'License No',
+        iconImage: require('../../assests/images/license-number.png'),
+        text: 'DLV-123456'
+    },
+    {
+        id: '6',
+        heading: 'Chassis No',
+        iconImage: require('../../assests/images/chassis-no2.png'),
+        text: 'RMX1234567890'
+    },
+];
+
+// Extracted components for better performance
+const ImageSliderItem = React.memo(({ item }) => (
+    <View style={styles.imageContainer}>
+        <Image
+            source={item.imageURL}
+            style={styles.image}
+            resizeMode="cover"
+        />
+    </View>
+));
+
+const ComplainInfoCard = React.memo(({ item }) => (
+    <View style={styles.card}>
+        <Text style={styles.heading}>{item.heading}</Text>
+        <Image 
+            source={item.iconImage} 
+            style={styles.icon} 
+            resizeMode="contain" 
+        />
+        <Text style={styles.text}>{item.text}</Text>
+    </View>
+));
+
+const PaginationDots = React.memo(({ images, currentIndex, onDotPress }) => (
+    <View style={styles.paginationContainer}>
+        {images.map((_, index) => (
+            <TouchableOpacity
+                key={index}
+                style={[
+                    styles.paginationDot,
+                    currentIndex === index && styles.paginationDotActive
+                ]}
+                onPress={() => onDotPress(index)}
+                activeOpacity={0.7}
+            />
+        ))}
+    </View>
+));
+
+const ComplainDetails = ({ 
+    images = MOCK_IMAGES, 
+    complainInfo = MOCK_COMPLAIN_INFO,
+    complainNumber = "231"
+}) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
+    
     const slideAnim = useRef(new Animated.Value(-DRAWER_WIDTH)).current;
     const overlayOpacity = useRef(new Animated.Value(0)).current;
     const flatListRef = useRef(null);
 
-    const images = [
-        { id: '1', imageURL: require("../../assests/images/truckImage.png") }, 
-        { id: '2', imageURL: require("../../assests/images/truckImage.png") },
-        { id: '3', imageURL: require("../../assests/images/truckImage.png") },
-    ];
-
-    const openDrawer = () => {
-        setIsDrawerOpen(true);
-        Animated.parallel([
+    // Memoized animations
+    const drawerAnimations = useMemo(() => ({
+        open: () => Animated.parallel([
             Animated.timing(slideAnim, {
                 toValue: 0,
                 duration: 300,
@@ -45,11 +132,8 @@ const ComplainDetails = () => {
                 duration: 300,
                 useNativeDriver: true,
             }),
-        ]).start();
-    };
-
-    const closeDrawer = () => {
-        Animated.parallel([
+        ]),
+        close: () => Animated.parallel([
             Animated.timing(slideAnim, {
                 toValue: -DRAWER_WIDTH,
                 duration: 300,
@@ -60,68 +144,62 @@ const ComplainDetails = () => {
                 duration: 300,
                 useNativeDriver: true,
             }),
-        ]).start(() => setIsDrawerOpen(false));
-    };
+        ])
+    }), [slideAnim, overlayOpacity]);
 
-    const toggleDrawer = () => (isDrawerOpen ? closeDrawer() : openDrawer());
+    // Optimized drawer functions
+    const openDrawer = useCallback(() => {
+        setIsDrawerOpen(true);
+        drawerAnimations.open().start();
+    }, [drawerAnimations]);
 
-    // Handle scroll events for pagination
-    const handleScroll = (event) => {
+    const closeDrawer = useCallback(() => {
+        drawerAnimations.close().start(() => setIsDrawerOpen(false));
+    }, [drawerAnimations]);
+
+    const toggleDrawer = useCallback(() => {
+        isDrawerOpen ? closeDrawer() : openDrawer();
+    }, [isDrawerOpen, openDrawer, closeDrawer]);
+
+    // Optimized scroll handlers
+    const handleScroll = useCallback((event) => {
         const scrollPosition = event.nativeEvent.contentOffset.x;
         const index = Math.round(scrollPosition / IMAGE_WIDTH);
         setCurrentIndex(index);
-    };
+    }, []);
 
-    // Handle scroll end to ensure proper pagination
-    const handleScrollEnd = (event) => {
+    const handleScrollEnd = useCallback((event) => {
         const scrollPosition = event.nativeEvent.contentOffset.x;
         const index = Math.round(scrollPosition / IMAGE_WIDTH);
         setCurrentIndex(index);
-    };
+    }, []);
 
-    // Render each image item
-    const renderImage = ({ item, index }) => {
-        return (
-            <View style={styles.imageContainer}>
-                <Image 
-                    source={item.imageURL}
-                    style={styles.image}
-                    resizeMode="cover"
-                />
-            </View>
-        );
-    };
+    // Pagination dot press handler
+    const handleDotPress = useCallback((index) => {
+        flatListRef.current?.scrollToIndex({
+            index,
+            animated: true,
+            viewPosition: 0.5
+        });
+        setCurrentIndex(index);
+    }, []);
 
-    // Render pagination dots
-    const renderPagination = () => {
-        return (
-            <View style={styles.paginationContainer}>
-                {images.map((_, index) => (
-                    <TouchableOpacity
-                        key={index}
-                        style={[
-                            styles.paginationDot,
-                            currentIndex === index && styles.paginationDotActive
-                        ]}
-                        onPress={() => {
-                            if (flatListRef.current) {
-                                flatListRef.current.scrollToIndex({ 
-                                    index, 
-                                    animated: true,
-                                    viewPosition: 0.5 
-                                });
-                                setCurrentIndex(index);
-                            }
-                        }}
-                    />
-                ))}
-            </View>
-        );
-    };
+    // Memoized render functions
+    const renderImage = useCallback(({ item }) => (
+        <ImageSliderItem item={item} />
+    ), []);
+
+    const renderCard = useCallback(({ item }) => (
+        <ComplainInfoCard item={item} />
+    ), []);
+
+    const keyExtractorImages = useCallback((item) => item.id, []);
+    const keyExtractorCards = useCallback((item) => item.id, []);
 
     return (
         <>
-            <View style={styles.container}>
+            <ScrollView style={styles.container}>
+                {/* Background Circles */}
                 <View style={styles.circleContainerTop}>
                     <Circle size={width * 0.6} color={appColors.primary} />
                 </View>
@@ -130,16 +208,17 @@ const ComplainDetails = () => {
                 </View>
 
                 {/* Header */}
-                <Header onMenuPress={toggleDrawer} title={"Create New"} />
+                <Header onMenuPress={toggleDrawer} title="Complain Details" />
 
                 <View style={styles.contentContainer}>
                     <View style={styles.detailInfoContainer}>
+                        {/* Image Slider */}
                         <View style={styles.sliderContainer}>
-                            <FlatList 
+                            <FlatList
                                 ref={flatListRef}
                                 data={images}
                                 renderItem={renderImage}
-                                keyExtractor={(item) => item.id}
+                                keyExtractor={keyExtractorImages}
                                 horizontal
                                 pagingEnabled
                                 showsHorizontalScrollIndicator={false}
@@ -151,27 +230,63 @@ const ComplainDetails = () => {
                                 onMomentumScrollEnd={handleScrollEnd}
                                 scrollEventThrottle={16}
                                 bounces={false}
-                                scrollEnabled={true}
-                                nestedScrollEnabled={true}
+                                removeClippedSubviews={true}
+                                maxToRenderPerBatch={3}
+                                windowSize={5}
                             />
-                            {renderPagination()}
+                            <PaginationDots 
+                                images={images}
+                                currentIndex={currentIndex}
+                                onDotPress={handleDotPress}
+                            />
                         </View>
-                        
-            
+
+                        {/* Complain Information */}
                         <View style={styles.additionalContent}>
-                            {/* Add your other components here */}
+                            <Text style={styles.complainTitle}>
+                                Complain No {complainNumber}
+                            </Text>
+
+                            <View style={styles.cardContainer}>
+                                <FlatList
+                                    data={complainInfo}
+                                    renderItem={renderCard}
+                                    keyExtractor={keyExtractorCards}
+                                    numColumns={2}
+                                    contentContainerStyle={styles.cardListContent}
+                                    showsVerticalScrollIndicator={false}
+                                    maxToRenderPerBatch={4}
+                                    windowSize={7}
+                                />
+                            </View>
+
+
+                            <View>
+                                <Text style={styles.complainTitle}>Complain Discription</Text>
+                                <Text>Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolorem agna aliqua. Ut enim ad minim veniam, quis nostrudexe rc citation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
+                            </View>
+
+
+
+                            
                         </View>
                     </View>
                 </View>
-            </View>
+            </ScrollView>
 
+            {/* Drawer Overlay */}
             {isDrawerOpen && (
                 <Animated.View style={[styles.overlay, { opacity: overlayOpacity }]}>
-                    <TouchableOpacity style={styles.overlayTouchable} onPress={closeDrawer} />
+                    <TouchableOpacity 
+                        style={styles.overlayTouchable} 
+                        onPress={closeDrawer}
+                        activeOpacity={1}
+                    />
                 </Animated.View>
             )}
 
-            <CustomDrawer slideAnim={slideAnim} closeDrawer={closeDrawer} /> 
+            {/* Custom Drawer */}
+            <CustomDrawer slideAnim={slideAnim} closeDrawer={closeDrawer} />
         </>
     );
 };
@@ -179,7 +294,7 @@ const ComplainDetails = () => {
 export default ComplainDetails;
 
 const styles = StyleSheet.create({
-    container: { 
+    container: {
         flex: 1,
         backgroundColor: '#f5f5f5',
     },
@@ -209,17 +324,16 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     detailInfoContainer: {
-        width: '100%',
+        flex: 1,
         paddingHorizontal: 18,
         paddingVertical: 20,
     },
     sliderContainer: {
         width: '100%',
-        height: IMAGE_HEIGHT + 30, 
+        height: IMAGE_HEIGHT + 50,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 10,
-        marginTop: 10,
+        marginBottom: 20,
     },
     imageContainer: {
         width: IMAGE_WIDTH,
@@ -234,7 +348,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        backgroundColor: '#ffff',
+        backgroundColor: '#fff',
         marginRight: 10,
     },
     image: {
@@ -265,6 +379,49 @@ const styles = StyleSheet.create({
     },
     additionalContent: {
         flex: 1,
-        // Add styles for your additional content
+    },
+    complainTitle: {
+        fontSize: 22,
+        fontWeight: '600',
+        color: '#333',
+        marginBottom: 5,
+        textAlign: 'left',
+        paddingHorizontal: 10,
+    },
+    cardContainer: {
+        flex: 1,
+        // backgroundColor: 'yellow'
+    },
+    cardListContent: {
+        justifyContent: 'center',
+    },
+    card: {
+        width: CARD_WIDTH,
+        backgroundColor: '#fff',
+        borderRadius: 12,
+        padding: 10,
+        margin: 8,
+        alignItems: 'center',
+        shadowRadius: 5,
+        borderWidth: 2,
+        borderColor: '#E5E5E5',
+    },
+    heading: {
+        fontSize: 15,
+        fontWeight: '700',
+        marginBottom: 8,
+        color: '#000',
+        textAlign: 'center',
+    },
+    icon: {
+        width: 35,
+        height: 35,
+        marginBottom: 6,
+    },
+    text: {
+        fontSize: 14,
+        color: '#000',
+        textAlign: 'center',
+        fontWeight: '600',
     },
 });

@@ -10,9 +10,8 @@ import {
 import Circle from '../../components/Circle';
 import appColors from '../../constants/color';
 import Header from '../../components/Header';
-import CustomDrawer from '../../components/CustomDrawer';
 import CustomButton from '../../components/CustomButton';
-
+import CustomDrawer from '../../components/CustomDrawer';
 const { width, height } = Dimensions.get('window');
 const DRAWER_WIDTH = width * 0.8;
 
