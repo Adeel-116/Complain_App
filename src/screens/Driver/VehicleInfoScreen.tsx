@@ -22,12 +22,12 @@ const { width, height } = Dimensions.get('window');
 const DRAWER_WIDTH = width * 0.8;
 
 const vehicleData = [
-    { id: '1', label: 'Model Number', value: '2025', icon: require('../../assests/images/model-number.png') },
-    { id: '2', label: 'Engine Type', value: 'Hybrid', icon: require('../../assests/images/model-number.png') },
-    { id: '3', label: 'Color', value: 'Black', icon: require('../../assests/images/model-number.png') },
-    { id: '4', label: 'Registration', value: 'ABC-1234', icon: require('../../assests/images/model-number.png') },
-    { id: '5', label: 'Owner', value: 'John Doe', icon: require('../../assests/images/model-number.png') },
-    { id: '6', label: 'Chassis No.', value: 'XYZ7890', icon: require('../../assests/images/model-number.png') },
+    { id: '1', label: 'Model Number', value: '2025', icon: require('../../assets/images/model-number.png') },
+    { id: '2', label: 'Engine Type', value: 'Hybrid', icon: require('../../assets/images/model-number.png') },
+    { id: '3', label: 'Color', value: 'Black', icon: require('../../assets/images/model-number.png') },
+    { id: '4', label: 'Registration', value: 'ABC-1234', icon: require('../../assets/images/model-number.png') },
+    { id: '5', label: 'Owner', value: 'John Doe', icon: require('../../assets/images/model-number.png') },
+    { id: '6', label: 'Chassis No.', value: 'XYZ7890', icon: require('../../assets/images/model-number.png') },
 ];
 
 const VehicleInfoScreen = () => {

@@ -24,46 +24,46 @@ const CARD_WIDTH = width * 0.38;
 
 // Sample data - move to separate file in real app
 const MOCK_IMAGES = [
-    { id: '1', imageURL: require("../../assests/images/truckImage.png") },
-    { id: '2', imageURL: require("../../assests/images/truckImage.png") },
-    { id: '3', imageURL: require("../../assests/images/truckImage.png") },
+    { id: '1', imageURL: require("../../assets/images/truckImage.png") },
+    { id: '2', imageURL: require("../../assets/images/truckImage.png") },
+    { id: '3', imageURL: require("../../assets/images/truckImage.png") },
 ];
 
 const MOCK_COMPLAIN_INFO = [
     {
         id: '1',
         heading: 'Driver Name',
-        iconImage: require('../../assests/images/driver-icon.png'),
+        iconImage: require('../../assets/images/driver-icon.png'),
         text: 'John Carter'
     },
     {
         id: '2',
         heading: 'Contact Number',
-        iconImage: require('../../assests/images/phone-number.png'),
+        iconImage: require('../../assets/images/phone-number.png'),
         text: '+1 555-9876'
     },
     {
         id: '3',
         heading: 'Vehicle No',
-        iconImage: require('../../assests/images/vehicle.png'),
+        iconImage: require('../../assets/images/vehicle.png'),
         text: 'ABC-1234'
     },
     {
         id: '4',
         heading: 'Date',
-        iconImage: require('../../assests/images/date.png'),
+        iconImage: require('../../assets/images/date.png'),
         text: '2024-01-15'
     },
     {
         id: '5',
         heading: 'License No',
-        iconImage: require('../../assests/images/license-number.png'),
+        iconImage: require('../../assets/images/license-number.png'),
         text: 'DLV-123456'
     },
     {
         id: '6',
         heading: 'Chassis No',
-        iconImage: require('../../assests/images/chassis-no2.png'),
+        iconImage: require('../../assets/images/chassis-no2.png'),
         text: 'RMX1234567890'
     },
 ];

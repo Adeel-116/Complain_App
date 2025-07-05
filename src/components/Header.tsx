@@ -38,7 +38,7 @@ const Header = ({
 
       {/* Right - Profile Image */}
       <Image
-        source={require('../assests/images/profile-picture3.jpg')}
+        source={require('../assets/images/profile-picture3.jpg')}
         style={[styles.profileImage, { width: boxSize, height: boxSize, borderRadius: boxSize / 2 }]}
       />
     </View>

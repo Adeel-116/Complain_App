@@ -69,7 +69,7 @@ const CreateNew = () => {
 
             <View style={styles.cardContainer}>
                 <CardItem
-                    iconImage={require("../../assests/images/scan.png")}
+                    iconImage={require("../../assets/images/scan.png")}
                     label="Scan"
                     onPress={() => {
                         console.log('Scan pressed');
@@ -77,7 +77,7 @@ const CreateNew = () => {
                 />
 
                 <CardItem
-                    iconImage={require("../../assests/images/license-plate.png")}
+                    iconImage={require("../../assets/images/license-plate.png")}
                     label="Number"
                     onPress={() => {
                         console.log('Upload pressed');

@@ -32,7 +32,7 @@ const CustomDrawer = ({
         <View style={styles.contentContainer}>
           <View style={styles.profileInfo}>
             <Image
-              source={require('../assests/images/profile-picture3.jpg')}
+              source={require('../assets/images/profile-picture3.jpg')}
               style={styles.profileImage}
             />
             <View style={styles.profileTextContainer}>
@@ -54,7 +54,7 @@ const CustomDrawer = ({
         <DrawerMenuItem
           backgroundColor={appColors.primary}
           text="Dashboard"
-          iconImage={require('../assests/images/menu-icon-dashboard.png')}
+          iconImage={require('../assets/images/menu-icon-dashboard.png')}
 
           onPress={() => {
             console.log('Dashboard pressed');
@@ -65,7 +65,7 @@ const CustomDrawer = ({
         <DrawerMenuItem
           backgroundColor={appColors.secondary}
           text="Complain"
-          iconImage={require('../assests/images/complain-icon.png')}
+          iconImage={require('../assets/images/complain-icon.png')}
           dropdown
         />
 

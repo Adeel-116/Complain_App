@@ -22,7 +22,7 @@ const complaintsData = [
   {
     id: 1,
     complainNo: 'Complain No 231',
-    image: require('../../assests/images/truckImage.png'),
+    image: require('../../assets/images/truckImage.png'),
     ownerName: 'Ronald Wilfred',
     chassisNumber: '24883722',
     vehicleNumber: 'ENG - 204',
@@ -32,7 +32,7 @@ const complaintsData = [
   {
     id: 2,
     complainNo: 'Complain No 232',
-    image: require('../../assests/images/truckImage.png'),
+    image: require('../../assets/images/truckImage.png'),
     ownerName: 'John Smith',
     chassisNumber: '24883723',
     vehicleNumber: 'ENG - 205',
@@ -42,7 +42,7 @@ const complaintsData = [
   {
     id: 3,
     complainNo: 'Complain No 233',
-    image: require('../../assests/images/truckImage.png'),
+    image: require('../../assets/images/truckImage.png'),
     ownerName: 'Mike Johnson',
     chassisNumber: '24883724',
     vehicleNumber: 'ENG - 206',
