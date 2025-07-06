@@ -8,13 +8,13 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import AntIcon from 'react-native-vector-icons/AntDesign';
-
+import appFonts from '../../constants/font';
+import appColors from '../../constants/color';
 interface DrawerMenuItemProps {
   backgroundColor: string;
   text: string;
   iconImage: ImageSourcePropType;
   dropdown?: boolean;
-  onPress?: () => void;
 }
 
 const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
@@ -22,7 +22,6 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
   text,
   iconImage,
   dropdown = false,
-  onPress,
 }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -30,12 +29,13 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
     if (dropdown) {
       setExpanded(!expanded);
     }
-    onPress && onPress();
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
+      <TouchableOpacity 
+      onPress={handlePress}
+      activeOpacity={0.8}>
         <View style={[styles.menuItem, { backgroundColor }]}>
           <View style={styles.textContainer}>
             <Text style={styles.text}>{text}</Text>
@@ -76,16 +76,16 @@ export default DrawerMenuItem;
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 8,
     position: 'relative',
   },
   menuItem: {
     justifyContent: 'center',
     paddingVertical: 18,
-    paddingHorizontal: 14,
+    paddingHorizontal: 15,
     borderTopRightRadius: 16,
     borderBottomRightRadius: 16,
     overflow: 'hidden',
+    marginBottom: 18,
   },
   textContainer: {
     flexDirection: 'row',
@@ -93,8 +93,8 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 15,
+     fontFamily: appFonts.outfit_medium,
   },
   dropdownIcon: {
     marginLeft: 8,
@@ -104,7 +104,9 @@ const styles = StyleSheet.create({
     right: 10,
     backgroundColor: '#fff',
     borderRadius: 10,
-    padding: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 8,
+
   },
   icon: {
     width: 24,
@@ -114,8 +116,8 @@ const styles = StyleSheet.create({
   listItems: {
     position: 'absolute',
     width: '100%',
-    top: '102%',
-    backgroundColor: '#094F56',
+    top: '80%',
+    backgroundColor: appColors.primary,
     borderTopRightRadius: 16,
     borderBottomRightRadius: 16,
     paddingVertical: 12,
@@ -124,10 +126,10 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   option: {
-    fontSize: 18,
+    fontSize: 15,
     color: '#fafafa',
-    fontWeight: '700',
     textAlign: 'left',
+    fontFamily: appFonts.outfit_medium,
   },
   line: {
     height: 1,

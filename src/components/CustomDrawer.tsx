@@ -129,14 +129,16 @@ const styles = StyleSheet.create({
   nameText: {
     fontSize: width * 0.06,
     color: '#ffffff',
-    fontWeight: '700',
+    // fontWeight: '700',
     letterSpacing: 0.3,
+    fontFamily: 'Montserrat-Bold'
   },
   roleText: {
     fontSize: width * 0.05,
     color: 'rgba(255, 255, 255, 0.85)',
-    fontWeight: '500',
+    // fontWeight: '500',
     marginBottom: 8,
+    fontFamily: 'Montserrat-Bold'
   },
   locationContainer: {
     flexDirection: 'row',

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Image, Text, Dimensions } from 'react-native';
 import appColors from '../constants/color';
+import appFonts from '../constants/font';
 
 interface StatCardProps {
   image: any;
@@ -9,8 +10,8 @@ interface StatCardProps {
   iconSize?: number; // Optional custom icon size
 }
 
-function StatCard({ image, total, label, iconSize = 24 }: StatCardProps) {
-  const wrapperSize = iconSize + 20; // Padding + icon
+function StatCard({ image, total, label, iconSize = 10 }: StatCardProps) {
+  const wrapperSize = iconSize + 13; 
 
   return (
     <View style={styles.statCard}>
@@ -66,17 +67,16 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    marginRight: 10,
+    marginRight: 5,
   },
   countText: {
-    fontSize: 22,
-    fontWeight: 'bold',
+    fontSize: 18,
     color: 'white',
-    fontFamily: "Montserrat Black"
+    fontFamily: appFonts.bold
   },
   labelText: {
-    fontSize: 14,
+    fontSize: 12,
     color: '#fff',
-    fontFamily: "Montserrat Black",
+    fontFamily: appFonts.medium
   },
 });

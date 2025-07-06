@@ -4,6 +4,8 @@ import {
   Dimensions,
   ScrollView,
   StyleSheet,
+  StatusBar, 
+  
 } from 'react-native';
 import Circle from '../../components/Circle';
 import appColors from '../../constants/color';
@@ -42,8 +44,10 @@ const DashBoard = () => {
 
   return (
     <>
+      
+      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <View style={styles.container}>
-        {/* Background Circles */}
+
         <View style={styles.circleContainerTop}>
           <Circle size={width * 0.7} color={appColors.primary} />
         </View>
@@ -51,10 +55,9 @@ const DashBoard = () => {
           <Circle size={width * 0.8} color={appColors.primary} />
         </View>
 
-        {/* Header */}
+         <ScrollView>
         <Header onMenuPress={toggleDrawer} title={'Dashboard'} />
 
-        <ScrollView>
           <View style={styles.container1}>
             <View style={styles.statContainer}>
               {cardData.map((card, index) => (
@@ -90,7 +93,7 @@ const styles = StyleSheet.create({
   container1: { flex: 0.45 },
   container2: {
     flex: 0.55,
-    paddingVertical: 20,
+    // paddingVertical: 20,
     paddingHorizontal: width * 0.04,
   },
   circleContainerTop: {
@@ -101,7 +104,7 @@ const styles = StyleSheet.create({
   },
   circleContainerBottom: {
     position: 'absolute',
-    top: '70%',
+    top: '80%',
     left: -width * 0.6,
     zIndex: -1,
   },
@@ -110,6 +113,6 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     paddingHorizontal: width * 0.04,
-    paddingVertical: 30,
+    paddingVertical: width * 0.04,
   },
 });

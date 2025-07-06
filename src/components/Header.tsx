@@ -2,6 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Image, Text, Dimensions, TouchableOpacity } from 'react-native';
 import appColors from '../constants/color';
 import Icon from 'react-native-vector-icons/Feather';
+import appFonts from '../constants/font';
 
 const { width, height } = Dimensions.get('window');
 
@@ -54,7 +55,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: width * 0.05,
     height: height * 0.08,
-    marginTop: height * 0.01,
+    marginTop: height * 0.05,
+    // backgroundColor: 'blue'
   },
   iconBox: {
     borderRadius: 10,
@@ -67,7 +69,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: width * 0.045,
-    fontWeight: 'bold',
+    fontFamily: appFonts.bold
   },
   profileImage: {
     resizeMode: 'cover',

@@ -2,12 +2,19 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import appColors from '../../constants/color';
+import appFonts from '../../constants/font';
+import LinearGradient from 'react-native-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
 const DrawerHeader = () => {
   return (
-    <View style={styles.drawerHeaderContainer}>
+    <LinearGradient
+      colors={['#116770', '#0A3B40']}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={styles.drawerHeaderContainer} 
+    >
       <View style={styles.contentContainer}>
         <View style={styles.profileInfo}>
           <Image
@@ -26,7 +33,7 @@ const DrawerHeader = () => {
           </View>
         </View>
       </View>
-    </View>
+    </LinearGradient>
   );
 };
 
@@ -35,27 +42,26 @@ export default DrawerHeader;
 const styles = StyleSheet.create({
   drawerHeaderContainer: {
     width: '100%',
-    height: height * 0.32,
-    backgroundColor: appColors.primary,
+    height: height * 0.2999,
     borderTopRightRadius: 25,
     borderBottomRightRadius: 80,
-    position: 'relative',
+    overflow: 'hidden', // ✅ Important for radius effect on gradient
   },
   contentContainer: {
     position: 'absolute',
-    bottom: 24,
-    left: 20,
+    bottom: 40,
+    left: 10,
     right: 20,
     alignItems: 'flex-start',
   },
   profileInfo: {
     width: '100%',
     flexDirection: 'row',
-    gap: 16,
+    gap: 10,
   },
   profileImage: {
-    width: width * 0.16,
-    height: width * 0.16,
+    width: width * 0.13,
+    height: width * 0.13,
     borderRadius: (width * 0.16) / 2,
     resizeMode: 'cover',
     borderWidth: 2.5,
@@ -66,15 +72,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   nameText: {
-    fontSize: width * 0.06,
+    fontSize: width * 0.05,
     color: '#ffffff',
-    fontWeight: '700',
+    fontFamily: appFonts.bold,
     letterSpacing: 0.3,
   },
   roleText: {
-    fontSize: width * 0.05,
+    fontSize: width * 0.04,
     color: 'rgba(255, 255, 255, 0.85)',
-    fontWeight: '500',
+    fontFamily: appFonts.semiBold,
     marginBottom: 8,
   },
   locationContainer: {
@@ -86,7 +92,7 @@ const styles = StyleSheet.create({
   locationText: {
     color: 'rgba(255, 255, 255, 0.9)',
     fontSize: width * 0.03,
-    fontWeight: '400',
+    fontFamily: appFonts.semiBold,
     lineHeight: 18,
     flex: 1,
   },

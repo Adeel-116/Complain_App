@@ -10,7 +10,7 @@ import DrawerHeader from './DrawerHeader';
 import DrawerMenu from './DrawerMenu';
 
 const { width, height } = Dimensions.get('window');
-const DRAWER_WIDTH = width * 0.75;
+const DRAWER_WIDTH = width * 0.72;
 
 const CustomDrawer = ({
   isOpen,
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
   },
   menuSection: {
     flex: 1,
-    width: '80%',
+    width: '85%',
     paddingTop: 20,
   },
 });
