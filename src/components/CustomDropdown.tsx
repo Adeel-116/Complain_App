@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import appFonts from '../constants/font';
 
 const options = [
   'Engine Tuning',
@@ -38,7 +39,7 @@ const CustomDropdown = () => {
     <View style={styles.container}>
       <Pressable onPress={toggleDropdown} style={styles.dropdown}>
         <Text style={styles.selectedText}>{selectedOption}</Text>
-        <AntDesign name={showOptions ? 'up' : 'down'} size={18} color="#666" />
+        <AntDesign name={showOptions ? 'up' : 'down'} size={18} color="#000" />
       </Pressable>
 
       {showOptions && (
@@ -96,7 +97,7 @@ const styles = StyleSheet.create({
   selectedText: {
     color: '#333',
     fontSize: 16,
-    fontWeight: '500',
+    fontFamily: appFonts.outfit_medium,
     flex: 1,
   },
   optionsContainer: {
@@ -112,6 +113,8 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.15,
     shadowRadius: 4,
+ 
+
   },
   scrollView: {
 //    backgroundColor: 'pink'
@@ -127,7 +130,7 @@ const styles = StyleSheet.create({
   optionText: {
     fontSize: 15,
     color: '#000',
-    fontWeight: '500',
+   fontFamily: appFonts.outfit_medium,
     textAlignVertical: 'center',
     lineHeight: 20,
   },

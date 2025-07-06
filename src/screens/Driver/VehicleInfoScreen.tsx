@@ -13,13 +13,13 @@ import {
 import Circle from '../../components/Circle';
 import appColors from '../../constants/color';
 import Header from '../../components/Header';
-import CustomDrawer from '../../components/CustomDrawer';
+import CustomDrawer from '../../components/CustomDrawer/CustomDrawer';
 import CustomButton from '../../components/CustomButton';
 import CustomDropdown from '../../components/CustomDropdown';
 import CustomTextArea from '../../components/CustomTextArea';
+import appFonts from '../../constants/font';
 
 const { width, height } = Dimensions.get('window');
-const DRAWER_WIDTH = width * 0.8;
 
 const vehicleData = [
     { id: '1', label: 'Model Number', value: '2025', icon: require('../../assets/images/model-number.png') },
@@ -31,42 +31,9 @@ const vehicleData = [
 ];
 
 const VehicleInfoScreen = () => {
+
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const slideAnim = useRef(new Animated.Value(-DRAWER_WIDTH)).current;
-    const overlayOpacity = useRef(new Animated.Value(0)).current;
-
-    const openDrawer = () => {
-        setIsDrawerOpen(true);
-        Animated.parallel([
-            Animated.timing(slideAnim, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(overlayOpacity, {
-                toValue: 0.5,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-        ]).start();
-    };
-
-    const closeDrawer = () => {
-        Animated.parallel([
-            Animated.timing(slideAnim, {
-                toValue: -DRAWER_WIDTH,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(overlayOpacity, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-        ]).start(() => setIsDrawerOpen(false));
-    };
-
-    const toggleDrawer = () => (isDrawerOpen ? closeDrawer() : openDrawer());
+    const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
     const renderCard = ({ item }: any) => (
         <View style={styles.card}>
@@ -78,7 +45,7 @@ const VehicleInfoScreen = () => {
 
     return (
         <>
-            <ScrollView style={styles.container}>
+            <View style={styles.container}>
                 {/* Decorative Circles */}
                 <View style={styles.circleContainerTop}>
                     <Circle size={width * 0.6} color={'white'} />
@@ -87,11 +54,11 @@ const VehicleInfoScreen = () => {
                     <Circle size={width * 0.8} color={'white'} />
                 </View>
 
-                {/* Header */}
+                <ScrollView>
                 <Header
                     onMenuPress={toggleDrawer}
-                    title="Create New"
-                    titleColor="#fff"
+                    title="Vehicle Information"
+                    titleColor="#000"
                     iconBgColor="#fff"
                     iconColor={appColors.primary}
                 />
@@ -104,7 +71,7 @@ const VehicleInfoScreen = () => {
                         keyExtractor={item => item.id}
                         numColumns={2}
                         columnWrapperStyle={styles.cardRow}
-                        contentContainerStyle={{ paddingBottom: 20 }}
+                        contentContainerStyle={{ paddingBottom: 10 }}
                         showsVerticalScrollIndicator={false}
                     />
                 </View>
@@ -120,21 +87,16 @@ const VehicleInfoScreen = () => {
                 <View style={{ paddingHorizontal: 20, marginTop: 15, }}>
                     <CustomButton ButtonTitle='Add' />
                 </View>
-                <View style={{ paddingHorizontal: 20, marginTop: 15 }}>
+                <View style={{ paddingHorizontal: 20, marginTop: 15, marginBottom: 50 }}>
                     <CustomButton ButtonTitle='Submit' />
                 </View>
+                </ScrollView>
 
-            </ScrollView>
+            </View>
 
-            {/* Overlay */}
-            {isDrawerOpen && (
-                <Animated.View style={[styles.overlay, { opacity: overlayOpacity }]}>
-                    <TouchableOpacity style={styles.overlayTouchable} onPress={closeDrawer} />
-                </Animated.View>
-            )}
-
-            {/* Drawer */}
-            <CustomDrawer slideAnim={slideAnim} closeDrawer={closeDrawer} />
+      <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} />
+            
+      
         </>
     );
 };
@@ -157,7 +119,7 @@ const styles = StyleSheet.create({
         left: -width * 0.6,
     },
     vehicleInfoContainer: {
-        marginTop: 50,
+        marginTop: 30,
         paddingHorizontal: 20,
         // backgroundColor: 'yellow',
     },
@@ -167,9 +129,9 @@ const styles = StyleSheet.create({
     },
     card: {
         backgroundColor: '#fff',
-        width: (width - 60) / 2,
+        width: (width - 50) / 2,
         borderRadius: 12,
-        borderWidth: 1,
+        borderWidth: 2,
         borderColor: '#e5e5e5',
         alignItems: 'center',
         padding: 10,
@@ -180,31 +142,22 @@ const styles = StyleSheet.create({
         elevation: 5,
     },
     iconImage: {
-        width: 50,
-        height: 50,
+        width: 45,
+        height: 45,
         resizeMode: 'contain',
     },
     cardLabel: {
-        fontSize: 15,
-        fontWeight: 'bold',
+        fontSize: 14,
+        fontFamily: appFonts.outfit_semibold,
         color: '#333',
         textAlign: 'center',
     },
     cardValue: {
-        fontSize: 14,
-        color: '#000',
+        fontSize: 13,
+        color: '#333',
         textAlign: 'center',
-        fontWeight: 500,
+        fontFamily: appFonts.outfit_semibold,
     },
-    overlay: {
-        position: 'absolute',
-        width,
-        height,
-        backgroundColor: 'black',
-        zIndex: 2,
-    },
-    overlayTouchable: {
-        flex: 1,
-    },
+ 
 });
 

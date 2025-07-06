@@ -107,40 +107,7 @@ const ComplaintCard = ({ item }) => (
 );
 
 const ComplainScreen = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const slideAnim = useRef(new Animated.Value(-DRAWER_WIDTH)).current;
-  const overlayOpacity = useRef(new Animated.Value(0)).current;
-
-  const toggleDrawer = () => {
-    if (isDrawerOpen) {
-      Animated.parallel([
-        Animated.timing(slideAnim, {
-          toValue: -DRAWER_WIDTH,
-          duration: 300,
-          useNativeDriver: true,
-        }),
-        Animated.timing(overlayOpacity, {
-          toValue: 0,
-          duration: 300,
-          useNativeDriver: true,
-        }),
-      ]).start(() => setIsDrawerOpen(false));
-    } else {
-      setIsDrawerOpen(true);
-      Animated.parallel([
-        Animated.timing(slideAnim, {
-          toValue: 0,
-          duration: 300,
-          useNativeDriver: true,
-        }),
-        Animated.timing(overlayOpacity, {
-          toValue: 0.5,
-          duration: 300,
-          useNativeDriver: true,
-        }),
-      ]).start();
-    }
-  };
+  
 
   return (
     <>
@@ -289,14 +256,5 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '500',
   },
-  overlay: {
-    position: 'absolute',
-    width,
-    height,
-    backgroundColor: 'black',
-    zIndex: 2,
-  },
-  overlayTouchable: {
-    flex: 1,
-  },
+ 
 });

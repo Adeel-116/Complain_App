@@ -8,12 +8,13 @@ import {
   SafeAreaView,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import CustomButton from '../../components/CustomButton';
 
 const ScannerScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
-      
+
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity style={styles.backButton}>
@@ -23,14 +24,11 @@ const ScannerScreen = () => {
 
       {/* Main Content */}
       <View style={styles.content}>
-        {/* Viewfinder Frame */}
         <View style={styles.viewfinderContainer}>
           <View style={styles.viewfinder}>
-            {/* Top Left Corner */}
             <View style={[styles.corner, styles.topLeft]} />
-            {/* Top Right Corner */}
             <View style={[styles.corner, styles.topRight]} />
-            
+
             {/* Document/Card Area */}
             <View style={styles.documentArea}>
               <View style={styles.documentCard}>
@@ -38,7 +36,7 @@ const ScannerScreen = () => {
                 <View style={styles.cardBottomStripe} />
               </View>
             </View>
-            
+
             {/* Bottom Left Corner */}
             <View style={[styles.corner, styles.bottomLeft]} />
             {/* Bottom Right Corner */}
@@ -46,17 +44,16 @@ const ScannerScreen = () => {
           </View>
         </View>
 
-        {/* Bottom Indicator */}
         <View style={styles.bottomIndicator} />
       </View>
 
       {/* Details Button */}
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.detailsButton}>
-          <Text style={styles.detailsButtonText}>Details</Text>
-        </TouchableOpacity>
+        <CustomButton ButtonTitle='Details' />
       </View>
     </SafeAreaView>
+
+    
   );
 };
 
@@ -77,6 +74,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
+    marginTop: StatusBar.currentHeight
   },
   content: {
     flex: 1,

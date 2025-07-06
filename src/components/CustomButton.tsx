@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import appFonts from '../constants/font';
 
 interface CustomButtonProps {
   ButtonTitle: string;
@@ -31,6 +32,6 @@ const styles = StyleSheet.create({
   text: {
     color: '#fff',
     fontSize: 17,
-    fontWeight: '500',
+    fontFamily: appFonts.bold,
   },
 });

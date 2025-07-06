@@ -44,8 +44,6 @@ const DashBoard = () => {
 
   return (
     <>
-      
-      <StatusBar barStyle="dark-content" translucent backgroundColor="transparent" />
       <View style={styles.container}>
 
         <View style={styles.circleContainerTop}>

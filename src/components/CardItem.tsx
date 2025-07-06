@@ -2,6 +2,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, Pressable, ImageSourcePropType } from 'react-native';
 import appColors from '../constants/color';
+import appFonts from '../constants/font';
 
 type CardItemProps = {
     iconImage: ImageSourcePropType;
@@ -25,12 +26,11 @@ export default CardItem;
 const styles = StyleSheet.create({
     cardContent: {
         width: '75%',
-        height: '30%',
+        height: '25%',
         backgroundColor: appColors.primary,
         borderRadius: 20,
         justifyContent: 'center',
         alignItems: 'center',
-        
         
 },
     iconContainer: {
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     fontStyle: {
         fontSize: 20,
-        fontWeight: 'bold',
+        fontFamily: appFonts.medium,
         color: 'white',
         marginTop: 10,
     },
