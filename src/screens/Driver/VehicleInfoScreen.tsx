@@ -31,10 +31,10 @@ const vehicleData = [
     { id: '6', label: 'Chassis No.', value: 'XYZ7890', icon: require('../../assets/images/model-number.png') },
 ];
 
-const VehicleInfoScreen = ({navigation}) => {
-     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-      const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
-    const [popup, setPopup] = useState(true)
+const VehicleInfoScreen = ({ navigation }) => {
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+    const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
+    const [popup, setPopup] = useState(false)
 
     const renderCard = ({ item }: any) => (
         <View style={styles.card}>
@@ -47,7 +47,7 @@ const VehicleInfoScreen = ({navigation}) => {
     return (
         <>
             <View style={styles.container}>
-                {/* Decorative Circles */}
+
                 <View style={styles.circleContainerTop}>
                     <Circle size={width * 0.6} color={'white'} />
                 </View>
@@ -56,53 +56,53 @@ const VehicleInfoScreen = ({navigation}) => {
                 </View>
 
                 <ScrollView>
-                <Header
-                    onMenuPress={toggleDrawer}
-                    title="Vehicle Information"
-                    titleColor="#000"
-                    iconBgColor="#fff"
-                    iconColor={appColors.primary}
-                />
+                    <Header
+                        onMenuPress={toggleDrawer}
+                        title="Vehicle Information"
+                        titleColor="#000"
+                        iconBgColor="#fff"
+                        iconColor={appColors.primary}
+                    />
 
-                {/* Vehicle Info Grid */}
-                <View style={styles.vehicleInfoContainer}>
-                    <FlatList
-                        data={vehicleData}
-                        renderItem={renderCard}
-                        keyExtractor={item => item.id}
-                        numColumns={2}
-                        columnWrapperStyle={styles.cardRow}
-                        contentContainerStyle={{ paddingBottom: 10 }}
-                        showsVerticalScrollIndicator={false}
-                    />
-                </View>
-                <View style={{ paddingHorizontal: 20, }}>
-                    <CustomDropdown />
-                </View>
-                <View style={{ paddingHorizontal: 20, }}>
-                    <CustomTextArea
-                        placeholder="Write Discription...."
-                        onChangeText={(text) => console.log(text)}
-                    />
-                </View>
-                <View style={{ paddingHorizontal: 20, marginTop: 15, }}>
-                    <CustomButton ButtonTitle='Add' onPress={()=>""} />
-                </View>
-                <View style={{ paddingHorizontal: 20, marginTop: 15, marginBottom: 50 }}>
-                    <CustomButton ButtonTitle='Submit' onPress={()=>setPopup(true)} />
-                </View>
+                    {/* Vehicle Info Grid */}
+                    <View style={styles.vehicleInfoContainer}>
+                        <FlatList
+                            data={vehicleData}
+                            renderItem={renderCard}
+                            keyExtractor={item => item.id}
+                            numColumns={2}
+                            columnWrapperStyle={styles.cardRow}
+                            contentContainerStyle={{ paddingBottom: 10 }}
+                            showsVerticalScrollIndicator={false}
+                        />
+                    </View>
+                    <View style={{ paddingHorizontal: 20, }}>
+                        <CustomDropdown />
+                    </View>
+                    <View style={{ paddingHorizontal: 20, }}>
+                        <CustomTextArea
+                            placeholder="Write Discription...."
+                            onChangeText={(text) => console.log(text)}
+                        />
+                    </View>
+                    <View style={{ paddingHorizontal: 20, marginTop: 15, }}>
+                        <CustomButton ButtonTitle='Add' onPress={() => ""} />
+                    </View>
+                    <View style={{ paddingHorizontal: 20, marginTop: 15, marginBottom: 50 }}>
+                        <CustomButton ButtonTitle='Submit' onPress={() => setPopup(true)} />
+                    </View>
                 </ScrollView>
 
             </View>
 
-         <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} navigation={navigation}/>
-            
+            <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} navigation={navigation} />
+
             <SuccessPopup
                 visible={popup}
-              onClose={() => setPopup(false)}
+                onClose={() => navigation.navigate("ComplainScreen")}
                 title="Submitted Successfully!"
-      />
-      
+            />
+
         </>
     );
 };
@@ -164,6 +164,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: appFonts.outfit_semibold,
     },
- 
+
 });
 

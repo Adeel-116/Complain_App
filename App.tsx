@@ -9,7 +9,7 @@ import ComplainScreen from './src/screens/Driver/ComplainScreen';
 import ScannerScreen from './src/screens/Driver/ScannerScreen';
 import NumberScreen from './src/screens/Driver/NumberScreen';
 import VehicleInfoScreen from './src/screens/Driver/VehicleInfoScreen';
-
+import ComplainDetails from './src/screens/Driver/ComplainDetails';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -32,6 +32,7 @@ export default function App() {
            <Stack.Screen name="ScannerScreen" component={ScannerScreen} /> 
           <Stack.Screen name="NumberScreen" component={NumberScreen} /> 
           <Stack.Screen name="VehicleInfoScreen" component={VehicleInfoScreen} />
+          <Stack.Screen name="ComplainDetails" component={ComplainDetails} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

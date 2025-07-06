@@ -13,7 +13,7 @@ import CustomButton from '../../components/CustomButton';
 const ScannerScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#000000" />
+      <StatusBar barStyle="light-content" backgroundColor="#000000" translucent />
 
       {/* Header */}
       <View style={styles.header}>
@@ -49,11 +49,9 @@ const ScannerScreen = ({navigation}) => {
 
       {/* Details Button */}
       <View style={styles.buttonContainer}>
-        <CustomButton ButtonTitle='Details' />
+        <CustomButton ButtonTitle='Details' onPress={()=>""}/>
       </View>
     </SafeAreaView>
-
-    
   );
 };
 
@@ -64,7 +62,7 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: 20,
-    paddingTop: 10,
+    paddingTop: 35, 
     paddingBottom: 20,
   },
   backButton: {
@@ -74,7 +72,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: StatusBar.currentHeight
+    // Removed marginTop: StatusBar.currentHeight
   },
   content: {
     flex: 1,

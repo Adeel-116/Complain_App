@@ -6,6 +6,7 @@ import {
   ScrollView,
   Text,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import Circle from '../../components/Circle';
@@ -13,6 +14,7 @@ import appColors from '../../constants/color';
 import Header from '../../components/Header';
 import CustomDrawer from '../../components/CustomDrawer/CustomDrawer';
 import appFonts from '../../constants/font';
+import { Touchable } from 'react-native';
 
 const { width, height } = Dimensions.get('window');
 
@@ -62,15 +64,15 @@ const getStatusColor = (status:any) => {
   }
 };
 
-const ComplaintCard = ({ item }:any) => (
+const ComplaintCard = ({ item, navigation}:any) => (
   <View style={styles.cardWrapper}>
     <Text style={styles.topText}>{item.complainNo}</Text>
     <View style={styles.card}>
-      <View style={styles.iconContainer}>
+      <TouchableOpacity style={styles.iconContainer} onPress={()=> navigation.navigate("ComplainDetails")}>
         <View style={styles.icon}>
           <Icon name="arrow-up-right" size={30} color={'white'} />
         </View>
-      </View>
+      </TouchableOpacity>
 
       <View style={styles.imageContainer}>
         <Image source={item.image} style={styles.vehicleImage} />
@@ -104,7 +106,7 @@ const ComplaintCard = ({ item }:any) => (
   </View>
 );
 
-const ComplainScreen = () => {
+const ComplainScreen = ({navigation}) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
         const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
     
@@ -121,7 +123,7 @@ const ComplainScreen = () => {
         <ScrollView>
         <Header
           onMenuPress={toggleDrawer}
-          title="Create New"
+          title="Complains"
           titleColor="#000"
           iconBgColor={appColors.primary}
           iconColor={'#fff'}
@@ -129,13 +131,13 @@ const ComplainScreen = () => {
 
         <View style={styles.complainContainer}>
           {complaintsData.map((item) => (
-            <ComplaintCard key={item.id} item={item} />
+            <ComplaintCard key={item.id} item={item} navigation={navigation}/>
           ))}
         </View>
         </ScrollView>
       </View>
 
-      <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} />
+      <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} navigation={navigation} />
       
     </>
   );
