@@ -12,12 +12,13 @@ import {
 import Circle from '../../components/Circle';
 import appColors from '../../constants/color';
 import Header from '../../components/Header';
+import appFonts from '../../constants/font';
 
 const { width, height } = Dimensions.get('window');
 
 const IMAGE_WIDTH = width * 0.77;
 const IMAGE_HEIGHT = height * 0.2444;
-const CARD_WIDTH = width * 0.38;
+const CARD_WIDTH = width * 0.28;
 
 // Sample data
 const MOCK_IMAGES = [
@@ -139,26 +140,26 @@ const ComplainDetails = ({
                             onMomentumScrollEnd={handleScroll}
                             scrollEventThrottle={16}
                         />
-                        
-                        {/* Pagination Dots */}
-                        <View style={styles.paginationContainer}>
-                            {images.map((_, index) => (
-                                <TouchableOpacity
-                                    key={index}
-                                    style={[
-                                        styles.paginationDot,
-                                        currentIndex === index && styles.paginationDotActive
-                                    ]}
-                                    onPress={() => handleDotPress(index)}
-                                />
-                            ))}
-                        </View>
+                    </View>
+
+                    {/* Pagination Dots - Moved outside slider */}
+                    <View style={styles.paginationContainer}>
+                        {images.map((_, index) => (
+                            <TouchableOpacity
+                                key={index}
+                                style={[
+                                    styles.paginationDot,
+                                    currentIndex === index && styles.paginationDotActive
+                                ]}
+                                onPress={() => handleDotPress(index)}
+                            />
+                        ))}
                     </View>
 
                     {/* Complain Information */}
-                    {/* <View style={styles.additionalContent}>
+                    <View style={styles.additionalContent}>
                         <Text style={styles.complainTitle}>
-                            Complain No {complainNumber}
+                            Complain No <Text style={{color: appColors.primary}}>{complainNumber}</Text>
                         </Text>
 
                         <View style={styles.cardContainer}>
@@ -166,20 +167,20 @@ const ComplainDetails = ({
                                 data={complainInfo}
                                 renderItem={renderCard}
                                 keyExtractor={(item) => item.id}
-                                numColumns={2}
+                                numColumns={3}
                                 contentContainerStyle={styles.cardListContent}
                                 showsVerticalScrollIndicator={false}
                                 scrollEnabled={false}
                             />
                         </View>
 
-                        <View>
+                        {/* <View>
                             <Text style={styles.complainTitle}>Complain Description</Text>
                             <Text style={styles.descriptionText}>
                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolorem magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                             </Text>
-                        </View>
-                    </View> */}
+                        </View> */}
+                    </View>
                 </View>
             </ScrollView>
         </View>
@@ -213,8 +214,7 @@ const styles = StyleSheet.create({
         height: IMAGE_HEIGHT,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 5,
-        backgroundColor: 'blue'
+        marginBottom: 15,
     },
     imageContainer: {
         width: IMAGE_WIDTH,
@@ -240,7 +240,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        backgroundColor: 'yellow',
+        marginBottom: 20,
+        paddingVertical: 10,
     },
     paginationDot: {
         width: 6,
@@ -260,9 +261,8 @@ const styles = StyleSheet.create({
     },
     complainTitle: {
         fontSize: 22,
-        fontWeight: '600',
         color: '#333',
-        marginBottom: 5,
+        marginBottom: 15,
         textAlign: 'left',
         paddingHorizontal: 10,
     },
@@ -271,33 +271,35 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     cardListContent: {
-        justifyContent: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 5,
     },
     card: {
         width: CARD_WIDTH,
         backgroundColor: '#fff',
         borderRadius: 12,
-        padding: 10,
-        margin: 8,
+        padding: 8,
+        margin: 3,
         alignItems: 'center',
         shadowRadius: 5,
         borderWidth: 2,
         borderColor: '#E5E5E5',
+        elevation: 3,
     },
     heading: {
-        fontSize: 15,
+        fontSize: 12,
         fontWeight: '700',
-        marginBottom: 8,
+        marginBottom: 6,
         color: '#000',
         textAlign: 'center',
     },
     icon: {
-        width: 35,
-        height: 35,
-        marginBottom: 6,
+        width: 28,
+        height: 28,
+        marginBottom: 4,
     },
     text: {
-        fontSize: 14,
+        fontSize: 11,
         color: '#000',
         textAlign: 'center',
         fontWeight: '600',
