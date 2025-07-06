@@ -6,58 +6,53 @@ import {
   Modal,
   Pressable,
   Dimensions,
+  StatusBar,
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
+import appFonts from '../constants/font';
 
 const { width, height } = Dimensions.get('window');
 
-const SuccessPopup = ({ visible, onClose, title = "Submit Successful" }:any) => {
+const SuccessPopup = ({ visible, onClose, title = "Submit Successful" }: any) => {
   return (
     <Modal
       visible={visible}
-      transparent={true}
+      transparent
       animationType="fade"
       onRequestClose={onClose}
+      statusBarTranslucent={true} // Add this
     >
       <Pressable style={styles.overlay} onPress={onClose}>
-        <View style={styles.container}>
-          <Pressable style={styles.popup} onPress={() => {}}>
-            <View style={styles.iconContainer}>
-              <AntDesign name="check" size={32} color="#FFFFFF" />
-            </View>
-            
-            <Text style={styles.successText}>{title}</Text>
-          </Pressable>
-        </View>
+        <Pressable style={styles.popup} onPress={() => {}}>
+          <View style={styles.iconContainer}>
+            <AntDesign name="check" size={32} color="#FFFFFF" />
+          </View>
+          <Text style={styles.successText}>{title}</Text>
+        </Pressable>
       </Pressable>
     </Modal>
   );
 };
 
-// Example usage component
+// Example usage
 const ExampleUsage = () => {
   const [showPopup, setShowPopup] = React.useState(false);
 
-  const handleShowPopup = () => {
-    setShowPopup(true);
-  };
-
-  const handleClosePopup = () => {
-    setShowPopup(false);
-  };
-
   return (
-    <View style={styles.exampleContainer}>
-      <Pressable style={styles.triggerButton} onPress={handleShowPopup}>
-        <Text style={styles.triggerButtonText}>Show Success Popup</Text>
-      </Pressable>
+    <>
+      <StatusBar backgroundColor="transparent" barStyle="dark-content" translucent />
+      <View style={styles.exampleContainer}>
+        <Pressable style={styles.triggerButton} onPress={() => setShowPopup(true)}>
+          <Text style={styles.triggerButtonText}>Show Success Popup</Text>
+        </Pressable>
 
-      <SuccessPopup
-        visible={showPopup}
-        onClose={handleClosePopup}
-        title="Submit Successful"
-      />
-    </View>
+        <SuccessPopup
+          visible={showPopup}
+          onClose={() => setShowPopup(false)}
+          title="Submit Successful"
+        />
+      </View>
+    </>
   );
 };
 
@@ -66,16 +61,10 @@ export { ExampleUsage };
 
 const styles = StyleSheet.create({
   overlay: {
-    flex: 1,
+    flex: 1, // Changed from position absolute to flex: 1
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: width,
-    height: height,
   },
   popup: {
     backgroundColor: '#FFFFFF',
@@ -86,10 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     elevation: 10,
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
+    shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.25,
     shadowRadius: 10,
     minWidth: 280,
@@ -104,21 +90,17 @@ const styles = StyleSheet.create({
     marginBottom: 24,
     elevation: 3,
     shadowColor: '#2D7A7A',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 4,
   },
   successText: {
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: appFonts.outfit_semibold,
     color: '#333333',
     textAlign: 'center',
     lineHeight: 24,
   },
-  // Example usage styles
   exampleContainer: {
     flex: 1,
     justifyContent: 'center',

@@ -1,16 +1,17 @@
 // components/CustomButton.tsx
 
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, GestureResponderEvent } from 'react-native';
 import appFonts from '../constants/font';
 
 interface CustomButtonProps {
   ButtonTitle: string;
+  onPress: (event: GestureResponderEvent) => void;
 }
 
-const CustomButton: React.FC<CustomButtonProps> = ({ ButtonTitle }) => {
+const CustomButton: React.FC<CustomButtonProps> = ({ ButtonTitle, onPress }) => {
   return (
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity style={styles.button} onPress={onPress} activeOpacity={0.8}>
       <Text style={styles.text}>{ButtonTitle}</Text>
     </TouchableOpacity>
   );
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     elevation: 3,
     borderWidth: 1,
-    borderColor: '#6A8F92'
+    borderColor: '#6A8F92',
   },
   text: {
     color: '#fff',

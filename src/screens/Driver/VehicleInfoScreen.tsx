@@ -18,6 +18,7 @@ import CustomButton from '../../components/CustomButton';
 import CustomDropdown from '../../components/CustomDropdown';
 import CustomTextArea from '../../components/CustomTextArea';
 import appFonts from '../../constants/font';
+import SuccessPopup from '../../components/SuccessPopup';
 
 const { width, height } = Dimensions.get('window');
 
@@ -33,7 +34,7 @@ const vehicleData = [
 const VehicleInfoScreen = ({navigation}) => {
      const [isDrawerOpen, setIsDrawerOpen] = useState(false);
       const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
-
+    const [popup, setPopup] = useState(true)
 
     const renderCard = ({ item }: any) => (
         <View style={styles.card}>
@@ -85,17 +86,22 @@ const VehicleInfoScreen = ({navigation}) => {
                     />
                 </View>
                 <View style={{ paddingHorizontal: 20, marginTop: 15, }}>
-                    <CustomButton ButtonTitle='Add' />
+                    <CustomButton ButtonTitle='Add' onPress={()=>""} />
                 </View>
                 <View style={{ paddingHorizontal: 20, marginTop: 15, marginBottom: 50 }}>
-                    <CustomButton ButtonTitle='Submit' />
+                    <CustomButton ButtonTitle='Submit' onPress={()=>setPopup(true)} />
                 </View>
                 </ScrollView>
 
             </View>
 
-      <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} navigation={navigation}/>
+         <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} navigation={navigation}/>
             
+            <SuccessPopup
+                visible={popup}
+              onClose={() => setPopup(false)}
+                title="Submitted Successfully!"
+      />
       
         </>
     );

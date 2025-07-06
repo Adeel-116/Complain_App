@@ -10,14 +10,14 @@ import {
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import CustomButton from '../../components/CustomButton';
 
-const ScannerScreen = () => {
+const ScannerScreen = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor="#000000" />
 
       {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
           <Icon name="arrow-back" size={24} color="#FFFFFF" />
         </TouchableOpacity>
       </View>

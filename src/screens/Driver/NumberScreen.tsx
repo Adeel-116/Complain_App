@@ -12,7 +12,7 @@ import CustomButton from '../../components/CustomButton';
 import CustomDrawer from '../../components/CustomDrawer/CustomDrawer';
 const { width, height } = Dimensions.get('window');
 
-const NumberScreen = () => {
+const NumberScreen = ({navigation}) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
         const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
     return (
@@ -45,12 +45,13 @@ const NumberScreen = () => {
 
 
                     <View style={styles.buttonContainer}>
-                        <CustomButton ButtonTitle='Enter'/>
+                        <CustomButton ButtonTitle='Enter' onPress={()=> navigation.navigate("VehicleInfoScreen")}/>
                     </View>
                 </View>
             </View>
 
-      <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} />
+            <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} navigation={navigation}/>
+        
           
         </>
     );
