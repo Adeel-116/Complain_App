@@ -1,10 +1,8 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Dimensions,
   StyleSheet,
-  Animated,
-  TouchableOpacity,
   ScrollView,
   Text,
   Image,
@@ -13,10 +11,10 @@ import Icon from 'react-native-vector-icons/Feather';
 import Circle from '../../components/Circle';
 import appColors from '../../constants/color';
 import Header from '../../components/Header';
-import CustomDrawer from '../../components/CustomDrawer';
+import CustomDrawer from '../../components/CustomDrawer/CustomDrawer';
+import appFonts from '../../constants/font';
 
 const { width, height } = Dimensions.get('window');
-const DRAWER_WIDTH = width * 0.8;
 
 const complaintsData = [
   {
@@ -51,7 +49,7 @@ const complaintsData = [
   },
 ];
 
-const getStatusColor = (status) => {
+const getStatusColor = (status:any) => {
   switch (status.toLowerCase()) {
     case 'in progress':
       return '#2D7A7A';
@@ -64,7 +62,7 @@ const getStatusColor = (status) => {
   }
 };
 
-const ComplaintCard = ({ item }) => (
+const ComplaintCard = ({ item }:any) => (
   <View style={styles.cardWrapper}>
     <Text style={styles.topText}>{item.complainNo}</Text>
     <View style={styles.card}>
@@ -107,18 +105,20 @@ const ComplaintCard = ({ item }) => (
 );
 
 const ComplainScreen = () => {
-  
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+        const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
+    
 
   return (
     <>
-      <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
+      <View style={styles.container}>
         <View style={styles.circleContainerTop}>
           <Circle size={width * 0.6} color={appColors.primary} />
         </View>
         <View style={styles.circleContainerBottom}>
           <Circle size={width * 0.8} color={appColors.primary} />
         </View>
-
+        <ScrollView>
         <Header
           onMenuPress={toggleDrawer}
           title="Create New"
@@ -132,15 +132,11 @@ const ComplainScreen = () => {
             <ComplaintCard key={item.id} item={item} />
           ))}
         </View>
-      </ScrollView>
+        </ScrollView>
+      </View>
 
-      {isDrawerOpen && (
-        <Animated.View style={[styles.overlay, { opacity: overlayOpacity }]}>
-          <TouchableOpacity style={styles.overlayTouchable} onPress={toggleDrawer} />
-        </Animated.View>
-      )}
-
-      <CustomDrawer slideAnim={slideAnim} closeDrawer={toggleDrawer} />
+      <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} />
+      
     </>
   );
 };
@@ -159,7 +155,7 @@ const styles = StyleSheet.create({
   },
   circleContainerBottom: {
     position: 'absolute',
-    top: '50%',
+    top: '80%',
     left: -width * 0.6,
   },
   complainContainer: {
@@ -170,15 +166,15 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   topText: {
-    fontSize: 18,
-    fontWeight: '600',
+    fontSize: 17,
+    fontFamily: appFonts.outfit_semibold,
     color: '#000',
-    marginBottom: 10,
+    marginBottom: 8,
   },
   card: {
     backgroundColor: '#fff',
     borderRadius: 12,
-    borderWidth: 1.5,
+    borderWidth: 2,
     borderColor: '#E5E5E5',
     padding: 15,
     shadowColor: '#000',
@@ -212,7 +208,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     width: '100%',
-    height: 160,
+    height: 150,
     borderRadius: 10,
     overflow: 'hidden',
     marginBottom: 12,
@@ -227,20 +223,19 @@ const styles = StyleSheet.create({
   },
   detailRow: {
     flexDirection: 'row',
-    marginBottom: 6,
   },
   detailRowLast: {
     flexDirection: 'row',
   },
   detailLabel: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: 13,
+    fontFamily: appFonts.outfit_medium,
     color: '#0A3B40',
     width: 120,
   },
   detailValue: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 13,
+    fontFamily: appFonts.outfit_medium,
     color: '#333',
   },
   statusContainer: {
@@ -253,8 +248,10 @@ const styles = StyleSheet.create({
   },
   statusText: {
     color: '#fff',
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '500',
+    fontFamily: appFonts.outfit_medium,
+
   },
  
 });

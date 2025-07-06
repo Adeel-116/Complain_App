@@ -31,9 +31,9 @@ const vehicleData = [
 ];
 
 const VehicleInfoScreen = () => {
+     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+      const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
     const renderCard = ({ item }: any) => (
         <View style={styles.card}>

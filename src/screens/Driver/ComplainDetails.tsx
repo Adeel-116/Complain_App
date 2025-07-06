@@ -1,9 +1,8 @@
-import React, { useRef, useState, useCallback, useMemo } from 'react';
+import React, { useRef, useState } from 'react';
 import {
     View,
     Dimensions,
     StyleSheet,
-    Animated,
     TouchableOpacity,
     Image,
     FlatList,
@@ -13,16 +12,14 @@ import {
 import Circle from '../../components/Circle';
 import appColors from '../../constants/color';
 import Header from '../../components/Header';
-import CustomDrawer from '../../components/CustomDrawer';
-
 
 const { width, height } = Dimensions.get('window');
-const DRAWER_WIDTH = width * 0.8;
-const IMAGE_WIDTH = width * 0.8;
-const IMAGE_HEIGHT = 210;
+
+const IMAGE_WIDTH = width * 0.77;
+const IMAGE_HEIGHT = height * 0.2444;
 const CARD_WIDTH = width * 0.38;
 
-// Sample data - move to separate file in real app
+// Sample data
 const MOCK_IMAGES = [
     { id: '1', imageURL: require("../../assets/images/truckImage.png") },
     { id: '2', imageURL: require("../../assets/images/truckImage.png") },
@@ -68,226 +65,124 @@ const MOCK_COMPLAIN_INFO = [
     },
 ];
 
-// Extracted components for better performance
-const ImageSliderItem = React.memo(({ item }) => (
-    <View style={styles.imageContainer}>
-        <Image
-            source={item.imageURL}
-            style={styles.image}
-            resizeMode="cover"
-        />
-    </View>
-));
-
-const ComplainInfoCard = React.memo(({ item }) => (
-    <View style={styles.card}>
-        <Text style={styles.heading}>{item.heading}</Text>
-        <Image 
-            source={item.iconImage} 
-            style={styles.icon} 
-            resizeMode="contain" 
-        />
-        <Text style={styles.text}>{item.text}</Text>
-    </View>
-));
-
-const PaginationDots = React.memo(({ images, currentIndex, onDotPress }) => (
-    <View style={styles.paginationContainer}>
-        {images.map((_, index) => (
-            <TouchableOpacity
-                key={index}
-                style={[
-                    styles.paginationDot,
-                    currentIndex === index && styles.paginationDotActive
-                ]}
-                onPress={() => onDotPress(index)}
-                activeOpacity={0.7}
-            />
-        ))}
-    </View>
-));
-
 const ComplainDetails = ({ 
     images = MOCK_IMAGES, 
     complainInfo = MOCK_COMPLAIN_INFO,
     complainNumber = "231"
 }) => {
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
-    
-    const slideAnim = useRef(new Animated.Value(-DRAWER_WIDTH)).current;
-    const overlayOpacity = useRef(new Animated.Value(0)).current;
     const flatListRef = useRef(null);
 
-    // Memoized animations
-    const drawerAnimations = useMemo(() => ({
-        open: () => Animated.parallel([
-            Animated.timing(slideAnim, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(overlayOpacity, {
-                toValue: 0.5,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-        ]),
-        close: () => Animated.parallel([
-            Animated.timing(slideAnim, {
-                toValue: -DRAWER_WIDTH,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-            Animated.timing(overlayOpacity, {
-                toValue: 0,
-                duration: 300,
-                useNativeDriver: true,
-            }),
-        ])
-    }), [slideAnim, overlayOpacity]);
-
-    // Optimized drawer functions
-    const openDrawer = useCallback(() => {
-        setIsDrawerOpen(true);
-        drawerAnimations.open().start();
-    }, [drawerAnimations]);
-
-    const closeDrawer = useCallback(() => {
-        drawerAnimations.close().start(() => setIsDrawerOpen(false));
-    }, [drawerAnimations]);
-
-    const toggleDrawer = useCallback(() => {
-        isDrawerOpen ? closeDrawer() : openDrawer();
-    }, [isDrawerOpen, openDrawer, closeDrawer]);
-
-    // Optimized scroll handlers
-    const handleScroll = useCallback((event) => {
+    const handleScroll = (event) => {
         const scrollPosition = event.nativeEvent.contentOffset.x;
         const index = Math.round(scrollPosition / IMAGE_WIDTH);
         setCurrentIndex(index);
-    }, []);
+    };
 
-    const handleScrollEnd = useCallback((event) => {
-        const scrollPosition = event.nativeEvent.contentOffset.x;
-        const index = Math.round(scrollPosition / IMAGE_WIDTH);
-        setCurrentIndex(index);
-    }, []);
-
-    // Pagination dot press handler
-    const handleDotPress = useCallback((index) => {
+    const handleDotPress = (index) => {
         flatListRef.current?.scrollToIndex({
             index,
             animated: true,
             viewPosition: 0.5
         });
         setCurrentIndex(index);
-    }, []);
+    };
 
-    // Memoized render functions
-    const renderImage = useCallback(({ item }) => (
-        <ImageSliderItem item={item} />
-    ), []);
+    const renderImage = ({ item }) => (
+        <View style={styles.imageContainer}>
+            <Image
+                source={item.imageURL}
+                style={styles.image}
+                resizeMode="cover"
+            />
+        </View>
+    );
 
-    const renderCard = useCallback(({ item }) => (
-        <ComplainInfoCard item={item} />
-    ), []);
-
-    const keyExtractorImages = useCallback((item) => item.id, []);
-    const keyExtractorCards = useCallback((item) => item.id, []);
+    const renderCard = ({ item }) => (
+        <View style={styles.card}>
+            <Text style={styles.heading}>{item.heading}</Text>
+            <Image 
+                source={item.iconImage} 
+                style={styles.icon} 
+                resizeMode="contain" 
+            />
+            <Text style={styles.text}>{item.text}</Text>
+        </View>
+    );
 
     return (
-        <>
-            <ScrollView style={styles.container}>
-                {/* Background Circles */}
-                <View style={styles.circleContainerTop}>
-                    <Circle size={width * 0.6} color={appColors.primary} />
-                </View>
-                <View style={styles.circleContainerBottom}>
-                    <Circle size={width * 0.8} color={appColors.primary} />
-                </View>
+        <View style={styles.container}>
+            <View style={styles.circleContainerTop}>
+                <Circle size={width * 0.6} color={appColors.primary} />
+            </View>
+            <View style={styles.circleContainerBottom}>
+                <Circle size={width * 0.8} color={appColors.primary} />
+            </View>
 
-                {/* Header */}
-                <Header onMenuPress={toggleDrawer} title="Complain Details" />
+            <ScrollView>
+                <Header onMenuPress={() => ""} title="Complain Details" />
 
-                <View style={styles.contentContainer}>
-                    <View style={styles.detailInfoContainer}>
-                        {/* Image Slider */}
-                        <View style={styles.sliderContainer}>
-                            <FlatList
-                                ref={flatListRef}
-                                data={images}
-                                renderItem={renderImage}
-                                keyExtractor={keyExtractorImages}
-                                horizontal
-                                pagingEnabled
-                                showsHorizontalScrollIndicator={false}
-                                showsVerticalScrollIndicator={false}
-                                snapToInterval={IMAGE_WIDTH}
-                                snapToAlignment="center"
-                                decelerationRate="fast"
-                                onScroll={handleScroll}
-                                onMomentumScrollEnd={handleScrollEnd}
-                                scrollEventThrottle={16}
-                                bounces={false}
-                                removeClippedSubviews={true}
-                                maxToRenderPerBatch={3}
-                                windowSize={5}
-                            />
-                            <PaginationDots 
-                                images={images}
-                                currentIndex={currentIndex}
-                                onDotPress={handleDotPress}
-                            />
-                        </View>
-
-                        {/* Complain Information */}
-                        <View style={styles.additionalContent}>
-                            <Text style={styles.complainTitle}>
-                                Complain No {complainNumber}
-                            </Text>
-
-                            <View style={styles.cardContainer}>
-                                <FlatList
-                                    data={complainInfo}
-                                    renderItem={renderCard}
-                                    keyExtractor={keyExtractorCards}
-                                    numColumns={2}
-                                    contentContainerStyle={styles.cardListContent}
-                                    showsVerticalScrollIndicator={false}
-                                    maxToRenderPerBatch={4}
-                                    windowSize={7}
+                <View style={styles.detailInfoContainer}>
+                    {/* Image Slider */}
+                    <View style={styles.sliderContainer}>
+                        <FlatList
+                            ref={flatListRef}
+                            data={images}
+                            renderItem={renderImage}
+                            keyExtractor={(item) => item.id}
+                            horizontal
+                            pagingEnabled
+                            showsHorizontalScrollIndicator={false}
+                            snapToInterval={IMAGE_WIDTH}
+                            snapToAlignment="center"
+                            decelerationRate="fast"
+                            onMomentumScrollEnd={handleScroll}
+                            scrollEventThrottle={16}
+                        />
+                        
+                        {/* Pagination Dots */}
+                        <View style={styles.paginationContainer}>
+                            {images.map((_, index) => (
+                                <TouchableOpacity
+                                    key={index}
+                                    style={[
+                                        styles.paginationDot,
+                                        currentIndex === index && styles.paginationDotActive
+                                    ]}
+                                    onPress={() => handleDotPress(index)}
                                 />
-                            </View>
-
-
-                            <View>
-                                <Text style={styles.complainTitle}>Complain Discription</Text>
-                                <Text>Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolorem agna aliqua. Ut enim ad minim veniam, quis nostrudexe rc citation ullamco laboris nisi ut aliquip ex ea commodo consequat.</Text>
-                            </View>
-
-
-
-                            
+                            ))}
                         </View>
                     </View>
+
+                    {/* Complain Information */}
+                    {/* <View style={styles.additionalContent}>
+                        <Text style={styles.complainTitle}>
+                            Complain No {complainNumber}
+                        </Text>
+
+                        <View style={styles.cardContainer}>
+                            <FlatList
+                                data={complainInfo}
+                                renderItem={renderCard}
+                                keyExtractor={(item) => item.id}
+                                numColumns={2}
+                                contentContainerStyle={styles.cardListContent}
+                                showsVerticalScrollIndicator={false}
+                                scrollEnabled={false}
+                            />
+                        </View>
+
+                        <View>
+                            <Text style={styles.complainTitle}>Complain Description</Text>
+                            <Text style={styles.descriptionText}>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolorem magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </Text>
+                        </View>
+                    </View> */}
                 </View>
             </ScrollView>
-
-            {/* Drawer Overlay */}
-            {isDrawerOpen && (
-                <Animated.View style={[styles.overlay, { opacity: overlayOpacity }]}>
-                    <TouchableOpacity 
-                        style={styles.overlayTouchable} 
-                        onPress={closeDrawer}
-                        activeOpacity={1}
-                    />
-                </Animated.View>
-            )}
-
-            {/* Custom Drawer */}
-            <CustomDrawer slideAnim={slideAnim} closeDrawer={closeDrawer} />
-        </>
+        </View>
     );
 };
 
@@ -298,30 +193,15 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f5f5f5',
     },
-    contentContainer: {
-        flex: 1,
-    },
     circleContainerTop: {
         position: 'absolute',
-        right: -width * 0.30,
+        right: -width * 0.3,
         top: -height * 0.06,
-        zIndex: -1,
     },
     circleContainerBottom: {
         position: 'absolute',
         top: '80%',
         left: -width * 0.6,
-        zIndex: -1,
-    },
-    overlay: {
-        position: 'absolute',
-        width,
-        height,
-        backgroundColor: 'black',
-        zIndex: 2,
-    },
-    overlayTouchable: {
-        flex: 1,
     },
     detailInfoContainer: {
         flex: 1,
@@ -330,14 +210,14 @@ const styles = StyleSheet.create({
     },
     sliderContainer: {
         width: '100%',
-        height: IMAGE_HEIGHT + 50,
+        height: IMAGE_HEIGHT,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 20,
+        marginBottom: 5,
+        backgroundColor: 'blue'
     },
     imageContainer: {
         width: IMAGE_WIDTH,
-        height: IMAGE_HEIGHT,
         borderRadius: 15,
         overflow: 'hidden',
         elevation: 5,
@@ -359,14 +239,12 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 15,
-        position: 'absolute',
-        bottom: 0,
         width: '100%',
+        backgroundColor: 'yellow',
     },
     paginationDot: {
-        width: 8,
-        height: 8,
+        width: 6,
+        height: 6,
         borderRadius: 4,
         backgroundColor: '#ccc',
         marginHorizontal: 4,
@@ -390,7 +268,7 @@ const styles = StyleSheet.create({
     },
     cardContainer: {
         flex: 1,
-        // backgroundColor: 'yellow'
+        marginBottom: 20,
     },
     cardListContent: {
         justifyContent: 'center',
@@ -423,5 +301,12 @@ const styles = StyleSheet.create({
         color: '#000',
         textAlign: 'center',
         fontWeight: '600',
+    },
+    descriptionText: {
+        fontSize: 14,
+        color: '#666',
+        lineHeight: 22,
+        textAlign: 'justify',
+        paddingHorizontal: 10,
     },
 });
