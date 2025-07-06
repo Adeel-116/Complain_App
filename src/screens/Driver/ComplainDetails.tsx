@@ -1,24 +1,18 @@
-import React, { useRef, useState } from 'react';
+import React, {useState}from 'react';
 import {
     View,
     Dimensions,
     StyleSheet,
-    TouchableOpacity,
-    Image,
-    FlatList,
-    Text, 
     ScrollView
 } from 'react-native';
 import Circle from '../../components/Circle';
 import appColors from '../../constants/color';
 import Header from '../../components/Header';
-import appFonts from '../../constants/font';
-
+import ImageSlider from '../../components/ImageSlider';
+import ComplainInfoCards from '../../components/ComplainInfoCards';
+import ComplainDescription from '../../components/ComplainDescription';
+import CustomDrawer from '../../components/CustomDrawer/CustomDrawer';
 const { width, height } = Dimensions.get('window');
-
-const IMAGE_WIDTH = width * 0.77;
-const IMAGE_HEIGHT = height * 0.2444;
-const CARD_WIDTH = (width - 60) / 3;
 
 // Sample data
 const MOCK_IMAGES = [
@@ -71,47 +65,12 @@ const ComplainDetails = ({
     complainInfo = MOCK_COMPLAIN_INFO,
     complainNumber = "231"
 }) => {
-    const [currentIndex, setCurrentIndex] = useState(0);
-    const flatListRef = useRef(null);
+      const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+        const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
-    const handleScroll = (event) => {
-        const scrollPosition = event.nativeEvent.contentOffset.x;
-        const index = Math.round(scrollPosition / IMAGE_WIDTH);
-        setCurrentIndex(index);
-    };
-
-    const handleDotPress = (index) => {
-        flatListRef.current?.scrollToIndex({
-            index,
-            animated: true,
-            viewPosition: 0.5
-        });
-        setCurrentIndex(index);
-    };
-
-    const renderImage = ({ item }) => (
-        <View style={styles.imageContainer}>
-            <Image
-                source={item.imageURL}
-                style={styles.image}
-                resizeMode="cover"
-            />
-        </View>
-    );
-
-    const renderCard = ({ item }) => (
-        <View style={styles.card}>
-            <Text style={styles.heading}>{item.heading}</Text>
-            <Image 
-                source={item.iconImage} 
-                style={styles.icon} 
-                resizeMode="contain" 
-            />
-            <Text style={styles.text}>{item.text}</Text>
-        </View>
-    );
 
     return (
+        <>
         <View style={styles.container}>
             <View style={styles.circleContainerTop}>
                 <Circle size={width * 0.6} color={appColors.primary} />
@@ -121,89 +80,23 @@ const ComplainDetails = ({
                 <Header onMenuPress={() => ""} title="Complain Details" />
 
                 <View style={styles.detailInfoContainer}>
-                    {/* Image Slider */}
-                    <View style={styles.sliderContainer}>
-                        <FlatList
-                            ref={flatListRef}
-                            data={images}
-                            renderItem={renderImage}
-                            keyExtractor={(item) => item.id}
-                            horizontal
-                            pagingEnabled
-                            showsHorizontalScrollIndicator={false}
-                            snapToInterval={IMAGE_WIDTH}
-                            snapToAlignment="center"
-                            decelerationRate="fast"
-                            onMomentumScrollEnd={handleScroll}
-                            scrollEventThrottle={16}
-                        />
-                    </View>
-
-                    {/* Pagination Dots - Moved outside slider */}
-                    <View style={styles.paginationContainer}>
-                        {images.map((_, index) => (
-                            <TouchableOpacity
-                                key={index}
-                                style={[
-                                    styles.paginationDot,
-                                    currentIndex === index && styles.paginationDotActive
-                                ]}
-                                onPress={() => handleDotPress(index)}
-                            />
-                        ))}
-                    </View>
-
-                    {/* Complain Information */}
+                    <ImageSlider images={images} />
+                    
                     <View style={styles.additionalContent}>
-                        <Text style={styles.complainTitle}>
-                            Complain No <Text style={{color: appColors.primary}}>{complainNumber}</Text>
-                        </Text>
-
-                        <View style={styles.cardContainer}>
-                            <FlatList
-                                data={complainInfo}
-                                renderItem={renderCard}
-                                keyExtractor={(item) => item.id}
-                                numColumns={3}
-                                contentContainerStyle={styles.cardListContent}
-                                showsVerticalScrollIndicator={false}
-                                scrollEnabled={false}
-                                columnWrapperStyle={styles.cardRow}
-                            />
-                        </View>
-
-                         <View>
-                            <Text style={styles.complainTitle}>Complain Description</Text>
-                            <Text style={styles.descriptionText}>
-                                Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolorem agna aliqua. Ut enim ad minim veniam, quis nostrudexe rc citation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </Text>
-
-
-                            <View style={styles.complainIssue}>
-                                 <Text style={[styles.complainTitle, {fontSize: 16, }]}>Engine OverHeating</Text>
-                            </View>
-
-                             <Text style={styles.descriptionText}>
-                                Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolorem agna aliqua. Ut enim ad minim veniam, quis nostrudexe rc citation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </Text>
-
-                            <View style={styles.complainIssue}>
-                                 <Text style={[styles.complainTitle, {fontSize: 16, }]}>Brake Fail</Text>
-                            </View>
-
-                              <Text style={styles.descriptionText}>
-                                Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolorem agna aliqua. Ut enim ad minim veniam, quis nostrudexe rc citation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            </Text>
-                            
-                        </View> 
+                        <ComplainInfoCards 
+                            complainInfo={complainInfo} 
+                            complainNumber={complainNumber} 
+                        />
+                        <ComplainDescription />
                     </View>
                 </View>
             </ScrollView>
         </View>
+
+         <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} />
+        </>
     );
 };
-
-export default ComplainDetails;
 
 const styles = StyleSheet.create({
     container: {
@@ -219,118 +112,11 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 18,
         paddingVertical: 20,
-        // backgroundColor: 'yellow'
-    },
-    sliderContainer: {
-        width: '100%',
-        height: IMAGE_HEIGHT,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 15,
-    },
-    imageContainer: {
-        width: IMAGE_WIDTH,
-        borderRadius: 15,
-        overflow: 'hidden',
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        backgroundColor: '#fff',
-        marginRight: 10,
-    },
-    image: {
-        width: '100%',
-        height: '100%',
-    },
-    paginationContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        paddingVertical: 5,
-    },
-    paginationDot: {
-        width: 6,
-        height: 6,
-        borderRadius: 4,
-        backgroundColor: '#ccc',
-        marginHorizontal: 4,
-    },
-    paginationDotActive: {
-        backgroundColor: appColors.primary,
-        width: 10,
-        height: 10,
-        borderRadius: 5,
     },
     additionalContent: {
         flex: 1,
         paddingVertical: 10,
     },
-    complainTitle: {
-        fontSize: 20,
-        fontFamily: appFonts.outfit_semibold,
-        color: '#333',
-        textAlign: 'left',
-        // paddingHorizontal: 10,
-    },
-    cardContainer: {
-        flex: 1,
-        paddingVertical: 14,
-    },
-    cardListContent: {
-        paddingHorizontal: 10,
-    },
-    cardRow: {
-        justifyContent: 'space-between',
-        paddingHorizontal: 0,
-    },
-    card: {
-        width: CARD_WIDTH,
-        backgroundColor: '#fff',
-        borderRadius: 8,
-        paddingVertical: 7,
-        marginBottom: 10,
-        alignItems: 'center',
-        borderWidth: 2,
-        borderColor: '#E5E5E5'
-    },
-    heading: {
-        fontSize: 12,
-        fontWeight: '700',
-        marginBottom: 6,
-        color: '#000',
-        textAlign: 'center',
-    },
-    icon: {
-        width: 26,
-        height: 26,
-        marginBottom: 4,
-    },
-    text: {
-        fontSize: 11,
-        color: '#000',
-        textAlign: 'center',
-        fontWeight: '600',
-    },
-    descriptionText: {
-        fontSize: 14,
-        fontFamily: appFonts.outfit_medium,
-        color: '#666',
-        lineHeight: 22,
-        textAlign: 'justify',
-        paddingVertical: 10,
-    },
-    complainIssue:{
-        width: '100%',
-        paddingVertical: 12,
-        paddingHorizontal: 16,
-        borderWidth: 2,
-        borderColor: '#D2D3D0',
-        borderRadius: 30,
-    }
 });
+
+export default ComplainDetails;

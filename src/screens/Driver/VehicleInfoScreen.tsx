@@ -30,7 +30,7 @@ const vehicleData = [
     { id: '6', label: 'Chassis No.', value: 'XYZ7890', icon: require('../../assets/images/model-number.png') },
 ];
 
-const VehicleInfoScreen = () => {
+const VehicleInfoScreen = ({navigation}) => {
      const [isDrawerOpen, setIsDrawerOpen] = useState(false);
       const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
@@ -94,7 +94,7 @@ const VehicleInfoScreen = () => {
 
             </View>
 
-      <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} />
+      <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} navigation={navigation}/>
             
       
         </>

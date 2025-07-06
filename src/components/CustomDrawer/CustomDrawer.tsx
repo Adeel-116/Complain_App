@@ -15,6 +15,7 @@ const DRAWER_WIDTH = width * 0.72;
 const CustomDrawer = ({
   isOpen,
   closeDrawer,
+  navigation,
 }) => {
   const slideAnim = useRef(new Animated.Value(-DRAWER_WIDTH)).current;
   const overlayOpacity = useRef(new Animated.Value(0)).current;
@@ -53,7 +54,7 @@ const CustomDrawer = ({
     <>
       {/* Overlay (Always Rendered, but animated) */}
       <Animated.View
-        pointerEvents={isOpen ? 'auto' : 'none'} // prevent clicks when closed
+        pointerEvents={isOpen ? 'auto' : 'none'}
         style={[styles.overlay, { opacity: overlayOpacity }]}
       >
         <TouchableOpacity style={styles.overlayTouchable} onPress={closeDrawer} />
@@ -63,7 +64,7 @@ const CustomDrawer = ({
       <Animated.View style={[styles.drawer, { transform: [{ translateX: slideAnim }] }]}>
         <DrawerHeader />
         <View style={styles.menuSection}>
-          <DrawerMenu closeDrawer={closeDrawer} />
+          <DrawerMenu closeDrawer={closeDrawer} navigation={navigation}/>
         </View>
       </Animated.View>
     </>

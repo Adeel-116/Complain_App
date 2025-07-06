@@ -15,6 +15,8 @@ interface DrawerMenuItemProps {
   text: string;
   iconImage: ImageSourcePropType;
   dropdown?: boolean;
+  navigation?:any
+  closeDrawer?: () => void;
 }
 
 const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
@@ -22,6 +24,7 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
   text,
   iconImage,
   dropdown = false,
+  navigation
 }) => {
   const [expanded, setExpanded] = useState(false);
 
@@ -57,13 +60,13 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
 
       {expanded && dropdown && (
         <View style={styles.listItems}>
-          <TouchableOpacity onPress={() => console.log('Create Pressed')}>
+          <TouchableOpacity onPress={() => navigation.navigate("CreateNew")}>
             <Text style={styles.option}>Create</Text>
           </TouchableOpacity>
 
           <View style={styles.line} />
 
-          <TouchableOpacity onPress={() => console.log('List Pressed')}>
+          <TouchableOpacity onPress={() => navigation.navigate("VehicleInfoScreen")}>
             <Text style={styles.option}>List</Text>
           </TouchableOpacity>
         </View>

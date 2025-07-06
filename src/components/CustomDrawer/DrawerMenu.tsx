@@ -19,7 +19,7 @@ const drawerItems = [
   },
 ];
 
-const DrawerMenu = () => {
+const DrawerMenu = ({navigation}) => {
   return (
     <View style={{}}>
       {drawerItems.map((item, index) => (
@@ -29,10 +29,7 @@ const DrawerMenu = () => {
           iconImage={item.iconImage}
           backgroundColor={item.backgroundColor}
           dropdown={item.dropdown}
-          // onPress={() => {
-          //   item.onPress?.();
-          //   closeDrawer();
-          // }}
+          navigation={navigation}
         />
       ))}
     </View>

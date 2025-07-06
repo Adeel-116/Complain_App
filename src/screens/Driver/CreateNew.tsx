@@ -12,7 +12,7 @@ import CustomDrawer from '../../components/CustomDrawer/CustomDrawer';
 
 const { width, height } = Dimensions.get('window');
 
-const CreateNew = () => {
+const CreateNew = ({navigation}) => {
     const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
 
@@ -36,7 +36,7 @@ const CreateNew = () => {
                         iconImage={require("../../assets/images/scan.png")}
                         label="Scan Now"
                         onPress={() => {
-                            console.log('Scan pressed');
+                            navigation.navigate("ScannerScreen")
                         }}
                     />
 
@@ -44,14 +44,14 @@ const CreateNew = () => {
                         iconImage={require("../../assets/images/license-plate.png")}
                         label="Number"
                         onPress={() => {
-                            console.log('Upload pressed');
+                            navigation.navigate("NumberScreen")
                         }}
                     />
                 </View>
             </View>
 
             {/* Custom Drawer */}
-            <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} />
+            <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} navigation={navigation}/>
         </>
     );
 };

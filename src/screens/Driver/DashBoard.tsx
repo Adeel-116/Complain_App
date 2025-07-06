@@ -16,7 +16,7 @@ import CustomDrawer from '../../components/CustomDrawer/CustomDrawer';
 
 const { width, height } = Dimensions.get('window');
 
-const DashBoard = () => {
+const DashBoard = ({navigation}) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
   const cardData = [
@@ -79,7 +79,7 @@ const DashBoard = () => {
       </View>
 
       {/* Custom Drawer */}
-      <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} />
+      <CustomDrawer isOpen={isDrawerOpen} closeDrawer={() => setIsDrawerOpen(false)} navigation={navigation} />
     </>
   );
 };
