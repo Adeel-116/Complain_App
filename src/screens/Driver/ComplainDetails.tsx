@@ -18,7 +18,7 @@ const { width, height } = Dimensions.get('window');
 
 const IMAGE_WIDTH = width * 0.77;
 const IMAGE_HEIGHT = height * 0.2444;
-const CARD_WIDTH = width * 0.28;
+const CARD_WIDTH = (width - 60) / 3;
 
 // Sample data
 const MOCK_IMAGES = [
@@ -116,9 +116,6 @@ const ComplainDetails = ({
             <View style={styles.circleContainerTop}>
                 <Circle size={width * 0.6} color={appColors.primary} />
             </View>
-            <View style={styles.circleContainerBottom}>
-                <Circle size={width * 0.8} color={appColors.primary} />
-            </View>
 
             <ScrollView>
                 <Header onMenuPress={() => ""} title="Complain Details" />
@@ -171,15 +168,34 @@ const ComplainDetails = ({
                                 contentContainerStyle={styles.cardListContent}
                                 showsVerticalScrollIndicator={false}
                                 scrollEnabled={false}
+                                columnWrapperStyle={styles.cardRow}
                             />
                         </View>
 
-                        {/* <View>
+                         <View>
                             <Text style={styles.complainTitle}>Complain Description</Text>
                             <Text style={styles.descriptionText}>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolorem magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolorem agna aliqua. Ut enim ad minim veniam, quis nostrudexe rc citation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                             </Text>
-                        </View> */}
+
+
+                            <View style={styles.complainIssue}>
+                                 <Text style={[styles.complainTitle, {fontSize: 16, }]}>Engine OverHeating</Text>
+                            </View>
+
+                             <Text style={styles.descriptionText}>
+                                Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolorem agna aliqua. Ut enim ad minim veniam, quis nostrudexe rc citation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </Text>
+
+                            <View style={styles.complainIssue}>
+                                 <Text style={[styles.complainTitle, {fontSize: 16, }]}>Brake Fail</Text>
+                            </View>
+
+                              <Text style={styles.descriptionText}>
+                                Lorem ipsum dolor sit amet, consectetur adipis cing elit, sed do eiusmod tempor incididunt ut labore et dolorem agna aliqua. Ut enim ad minim veniam, quis nostrudexe rc citation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            </Text>
+                            
+                        </View> 
                     </View>
                 </View>
             </ScrollView>
@@ -199,15 +215,11 @@ const styles = StyleSheet.create({
         right: -width * 0.3,
         top: -height * 0.06,
     },
-    circleContainerBottom: {
-        position: 'absolute',
-        top: '80%',
-        left: -width * 0.6,
-    },
     detailInfoContainer: {
         flex: 1,
         paddingHorizontal: 18,
         paddingVertical: 20,
+        // backgroundColor: 'yellow'
     },
     sliderContainer: {
         width: '100%',
@@ -240,8 +252,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         width: '100%',
-        marginBottom: 20,
-        paddingVertical: 10,
+        paddingVertical: 5,
     },
     paginationDot: {
         width: 6,
@@ -252,39 +263,41 @@ const styles = StyleSheet.create({
     },
     paginationDotActive: {
         backgroundColor: appColors.primary,
-        width: 12,
-        height: 12,
-        borderRadius: 6,
+        width: 10,
+        height: 10,
+        borderRadius: 5,
     },
     additionalContent: {
         flex: 1,
+        paddingVertical: 10,
     },
     complainTitle: {
-        fontSize: 22,
+        fontSize: 20,
+        fontFamily: appFonts.outfit_semibold,
         color: '#333',
-        marginBottom: 15,
         textAlign: 'left',
-        paddingHorizontal: 10,
+        // paddingHorizontal: 10,
     },
     cardContainer: {
         flex: 1,
-        marginBottom: 20,
+        paddingVertical: 14,
     },
     cardListContent: {
+        paddingHorizontal: 10,
+    },
+    cardRow: {
         justifyContent: 'space-between',
-        paddingHorizontal: 5,
+        paddingHorizontal: 0,
     },
     card: {
         width: CARD_WIDTH,
         backgroundColor: '#fff',
-        borderRadius: 12,
-        padding: 8,
-        margin: 3,
+        borderRadius: 8,
+        paddingVertical: 7,
+        marginBottom: 10,
         alignItems: 'center',
-        shadowRadius: 5,
         borderWidth: 2,
-        borderColor: '#E5E5E5',
-        elevation: 3,
+        borderColor: '#E5E5E5'
     },
     heading: {
         fontSize: 12,
@@ -294,8 +307,8 @@ const styles = StyleSheet.create({
         textAlign: 'center',
     },
     icon: {
-        width: 28,
-        height: 28,
+        width: 26,
+        height: 26,
         marginBottom: 4,
     },
     text: {
@@ -306,9 +319,18 @@ const styles = StyleSheet.create({
     },
     descriptionText: {
         fontSize: 14,
+        fontFamily: appFonts.outfit_medium,
         color: '#666',
         lineHeight: 22,
         textAlign: 'justify',
-        paddingHorizontal: 10,
+        paddingVertical: 10,
     },
+    complainIssue:{
+        width: '100%',
+        paddingVertical: 12,
+        paddingHorizontal: 16,
+        borderWidth: 2,
+        borderColor: '#D2D3D0',
+        borderRadius: 30,
+    }
 });
