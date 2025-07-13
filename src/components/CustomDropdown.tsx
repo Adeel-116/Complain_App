@@ -9,7 +9,14 @@ import {
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import appFonts from '../constants/font';
 
-const options = [
+interface CustomDropdownProps {
+  options?: string[];
+  defaultValue?: string;
+  onSelect?: (value: string) => void;
+  backgroundColor?: string;
+}
+
+const defaultOptions = [
   'Engine Tuning',
   'Brake Failure',
   'Oil Change',
@@ -22,9 +29,14 @@ const options = [
   'Suspension Repair',
 ];
 
-const CustomDropdown = () => {
+const CustomDropdown: React.FC<CustomDropdownProps> = ({
+  options = defaultOptions,
+  defaultValue = 'Categories',
+  onSelect,
+  backgroundColor = '#fff', // ✅ default
+}) => {
   const [showOptions, setShowOptions] = useState(false);
-  const [selectedOption, setSelectedOption] = useState('Categories');
+  const [selectedOption, setSelectedOption] = useState(defaultValue);
 
   const toggleDropdown = () => {
     setShowOptions(!showOptions);
@@ -33,29 +45,30 @@ const CustomDropdown = () => {
   const handleSelect = (option: string) => {
     setSelectedOption(option);
     setShowOptions(false);
+    onSelect?.(option);
   };
 
   return (
     <View style={styles.container}>
-      <Pressable onPress={toggleDropdown} style={styles.dropdown}>
+      <Pressable
+        onPress={toggleDropdown}
+        style={[styles.dropdown, { backgroundColor }]}
+      >
         <Text style={styles.selectedText}>{selectedOption}</Text>
         <AntDesign name={showOptions ? 'up' : 'down'} size={18} color="#000" />
       </Pressable>
 
       {showOptions && (
-        <View style={styles.optionsContainer}>
+        <View style={[styles.optionsContainer, { backgroundColor }]}>
           <ScrollView
             nestedScrollEnabled
-            showsVerticalScrollIndicator={true}
+            showsVerticalScrollIndicator
             style={styles.scrollView}
           >
             {options.map((item, index) => (
               <Pressable
                 key={index}
-                style={[
-                  styles.optionItem,
-
-                ]}
+                style={styles.optionItem}
                 onPress={() => handleSelect(item)}
               >
                 <Text style={styles.optionText}>{item}</Text>
@@ -81,7 +94,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#fff',
     paddingVertical: 14,
     paddingHorizontal: 20,
     borderRadius: 25,
@@ -101,7 +113,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   optionsContainer: {
-    backgroundColor: '#fff',
     borderRadius: 12,
     marginTop: 6,
     maxHeight: 200,
@@ -113,25 +124,19 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.15,
     shadowRadius: 4,
- 
-
   },
-  scrollView: {
-//    backgroundColor: 'pink'
-  },
+  scrollView: {},
   optionItem: {
-  // backgroundColor: 'blue',
-  paddingVertical: 15,
-  marginHorizontal: 10,
-  paddingHorizontal: 10,
-  borderBottomWidth: 1,
-  borderBottomColor: '#D2D3D0',
+    paddingVertical: 15,
+    marginHorizontal: 10,
+    paddingHorizontal: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#D2D3D0',
   },
   optionText: {
     fontSize: 15,
     color: '#000',
-   fontFamily: appFonts.outfit_medium,
-    textAlignVertical: 'center',
+    fontFamily: appFonts.outfit_medium,
     lineHeight: 20,
   },
 });

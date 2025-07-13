@@ -3,13 +3,12 @@ import { View } from 'react-native';
 import DrawerMenuItem from './DrawerMenuItem';
 import appColors from '../../constants/color';
 
-// TODO: Later API se dynamic data lena
 const drawerItems = [
   {
     text: 'Dashboard',
     iconImage: require('../../assets/images/menu-icon-dashboard.png'),
     backgroundColor: appColors.primary,
-    onPress: () => console.log('Dashboard pressed'),
+    onPress: (navigation: any) => navigation.navigate('DashBoard'),
   },
   {
     text: 'Complain',
@@ -19,9 +18,9 @@ const drawerItems = [
   },
 ];
 
-const DrawerMenu = ({navigation}) => {
+const DrawerMenu = ({ navigation }: any) => {
   return (
-    <View style={{}}>
+    <View>
       {drawerItems.map((item, index) => (
         <DrawerMenuItem
           key={index}
@@ -30,6 +29,7 @@ const DrawerMenu = ({navigation}) => {
           backgroundColor={item.backgroundColor}
           dropdown={item.dropdown}
           navigation={navigation}
+          onPress={item.onPress ? () => item.onPress(navigation) : undefined}
         />
       ))}
     </View>

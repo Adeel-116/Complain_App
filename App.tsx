@@ -10,6 +10,7 @@ import ScannerScreen from './src/screens/Driver/ScannerScreen';
 import NumberScreen from './src/screens/Driver/NumberScreen';
 import VehicleInfoScreen from './src/screens/Driver/VehicleInfoScreen';
 import ComplainDetails from './src/screens/Driver/ComplainDetails';
+import DocDrive from './src/screens/SuperVisior/DocDrive';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -20,8 +21,9 @@ export default function App() {
         barStyle="dark-content"
         translucent 
       />
+      <DocDrive navigation={undefined} />
 
-      <NavigationContainer>
+      {/* <NavigationContainer>
         <Stack.Navigator
           initialRouteName="DashBoard"
           screenOptions={{ headerShown: false }}
@@ -34,7 +36,7 @@ export default function App() {
           <Stack.Screen name="VehicleInfoScreen" component={VehicleInfoScreen} />
           <Stack.Screen name="ComplainDetails" component={ComplainDetails} />
         </Stack.Navigator>
-      </NavigationContainer>
+      </NavigationContainer> */}
     </>
   );
 }

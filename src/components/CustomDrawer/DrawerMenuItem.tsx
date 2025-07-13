@@ -10,13 +10,14 @@ import {
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import appFonts from '../../constants/font';
 import appColors from '../../constants/color';
+
 interface DrawerMenuItemProps {
   backgroundColor: string;
   text: string;
   iconImage: ImageSourcePropType;
   dropdown?: boolean;
-  navigation?:any
-  closeDrawer?: () => void;
+  navigation?: any;
+  onPress?: () => void;
 }
 
 const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
@@ -24,21 +25,22 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
   text,
   iconImage,
   dropdown = false,
-  navigation
+  navigation,
+  onPress,
 }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handlePress = () => {
     if (dropdown) {
       setExpanded(!expanded);
+    } else if (onPress) {
+      onPress();
     }
   };
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity 
-      onPress={handlePress}
-      activeOpacity={0.8}>
+      <TouchableOpacity onPress={handlePress} activeOpacity={0.8}>
         <View style={[styles.menuItem, { backgroundColor }]}>
           <View style={styles.textContainer}>
             <Text style={styles.text}>{text}</Text>
@@ -60,13 +62,13 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
 
       {expanded && dropdown && (
         <View style={styles.listItems}>
-          <TouchableOpacity onPress={() => navigation.navigate("CreateNew")}>
+          <TouchableOpacity onPress={() => navigation.navigate('CreateNew')}>
             <Text style={styles.option}>Create</Text>
           </TouchableOpacity>
 
           <View style={styles.line} />
 
-          <TouchableOpacity onPress={() => navigation.navigate("VehicleInfoScreen")}>
+          <TouchableOpacity onPress={() => navigation.navigate('ComplainScreen')}>
             <Text style={styles.option}>List</Text>
           </TouchableOpacity>
         </View>
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
   text: {
     color: '#fff',
     fontSize: 15,
-     fontFamily: appFonts.outfit_medium,
+    fontFamily: appFonts.outfit_medium,
   },
   dropdownIcon: {
     marginLeft: 8,
@@ -109,7 +111,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 8,
     paddingVertical: 8,
-
   },
   icon: {
     width: 24,
