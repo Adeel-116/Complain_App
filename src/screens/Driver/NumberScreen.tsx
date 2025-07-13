@@ -13,7 +13,7 @@ import CustomDrawer from '../../components/CustomDrawer/CustomDrawer';
 const { width, height } = Dimensions.get('window');
 
 const NumberScreen = ({navigation}) => {
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+        const [isDrawerOpen, setIsDrawerOpen] = useState(false);
         const toggleDrawer = () => setIsDrawerOpen(!isDrawerOpen);
     return (
         <>

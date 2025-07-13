@@ -1,39 +1,42 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Pressable,
-  ScrollView,
-} from 'react-native';
+import { View, Text, StyleSheet, Pressable, ScrollView } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import appFonts from '../constants/font';
 
 interface CustomDropdownProps {
-  options?: string[];
+  options?: { optionLabel: string; optionBgColor: string; fontColor: string }[];
   defaultValue?: string;
   onSelect?: (value: string) => void;
-  backgroundColor?: string;
 }
 
 const defaultOptions = [
-  'Engine Tuning',
-  'Brake Failure',
-  'Oil Change',
-  'Battery Low',
-  'Tyre Pressure',
-  'Engine Service',
-  'AC Cooling Issue',
-  'Fuel Leakage',
-  'Clutch Replacement',
-  'Suspension Repair',
+  { optionLabel: 'Engine Tuning', optionBgColor: '#fff', fontColor: '#000000' },
+  { optionLabel: 'Brake Failure', optionBgColor: '#fff', fontColor: '#000000' },
+  { optionLabel: 'Oil Change', optionBgColor: '#fff', fontColor: '#000000' },
+  { optionLabel: 'Battery Low', optionBgColor: '#fff', fontColor: '#000000' },
+  { optionLabel: 'Tyre Pressure', optionBgColor: '#fff', fontColor: '#000000' },
+  {
+    optionLabel: 'Engine Service',
+    optionBgColor: '#fff',
+    fontColor: '#000000',
+  },
+  {
+    optionLabel: 'AC Cooling Issue',
+    optionBgColor: '#fff',
+    fontColor: '#000000',
+  },
+  { optionLabel: 'Fuel Leakage', optionBgColor: '#fff', fontColor: '#000000' },
+  {
+    optionLabel: 'Clutch Replacement',
+    optionBgColor: '#fff',
+    fontColor: '#000000',
+  },
 ];
 
 const CustomDropdown: React.FC<CustomDropdownProps> = ({
   options = defaultOptions,
   defaultValue = 'Categories',
   onSelect,
-  backgroundColor = '#fff', // ✅ default
 }) => {
   const [showOptions, setShowOptions] = useState(false);
   const [selectedOption, setSelectedOption] = useState(defaultValue);
@@ -52,31 +55,60 @@ const CustomDropdown: React.FC<CustomDropdownProps> = ({
     <View style={styles.container}>
       <Pressable
         onPress={toggleDropdown}
-        style={[styles.dropdown, { backgroundColor }]}
+        style={[
+          styles.dropdown,
+          {
+            backgroundColor: '#ffff',
+            borderWidth: options ? 1 : 0,
+            borderColor: '#D2D3D0',
+          },
+        ]}
       >
         <Text style={styles.selectedText}>{selectedOption}</Text>
         <AntDesign name={showOptions ? 'up' : 'down'} size={18} color="#000" />
       </Pressable>
-
       {showOptions && (
-        <View style={[styles.optionsContainer, { backgroundColor }]}>
-          <ScrollView
-            nestedScrollEnabled
-            showsVerticalScrollIndicator
-            style={styles.scrollView}
-          >
-            {options.map((item, index) => (
+        <View style={styles.optionsContainer}>
+          {options.length > 4 ? (
+            <ScrollView
+              showsVerticalScrollIndicator={true}
+              nestedScrollEnabled={true}
+              keyboardShouldPersistTaps="handled"
+            >
+              {options.map((item, index) => (
+                <Pressable
+                  key={index}
+                  style={[
+                    styles.optionItem,
+                    { backgroundColor: item.optionBgColor },
+                  ]}
+                  onPress={() => handleSelect(item.optionLabel)}
+                >
+                  <Text style={[styles.optionText, { color: item.fontColor }]}>
+                    {item.optionLabel}
+                  </Text>
+                </Pressable>
+              ))}
+            </ScrollView>
+          ) : (
+            options.map((item, index) => (
               <Pressable
                 key={index}
-                style={styles.optionItem}
-                onPress={() => handleSelect(item)}
+                style={[
+                  styles.optionItem,
+                  { backgroundColor: item.optionBgColor },
+                ]}
+                onPress={() => handleSelect(item.optionLabel)}
               >
-                <Text style={styles.optionText}>{item}</Text>
+                <Text style={[styles.optionText, { color: item.fontColor }]}>
+                  {item.optionLabel}
+                </Text>
               </Pressable>
-            ))}
-          </ScrollView>
+            ))
+          )}
         </View>
       )}
+
     </View>
   );
 };
@@ -94,7 +126,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 14,
+    paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 25,
     elevation: 2,
@@ -113,29 +145,31 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   optionsContainer: {
+    width: '100%',
     borderRadius: 12,
     marginTop: 6,
     maxHeight: 200,
     elevation: 3,
     shadowColor: '#000',
+    overflow: 'hidden',
     shadowOffset: {
       width: 0,
       height: 2,
     },
+
     shadowOpacity: 0.15,
     shadowRadius: 4,
+
   },
-  scrollView: {},
+
   optionItem: {
     paddingVertical: 15,
-    marginHorizontal: 10,
     paddingHorizontal: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#D2D3D0',
   },
   optionText: {
     fontSize: 15,
-    color: '#000',
     fontFamily: appFonts.outfit_medium,
     lineHeight: 20,
   },
