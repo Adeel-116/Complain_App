@@ -62,7 +62,7 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
 
       {expanded && dropdown && (
         <View style={styles.listItems}>
-          <TouchableOpacity onPress={() => navigation.navigate('DocDrive')}>
+          <TouchableOpacity onPress={() => navigation.navigate('CreateNew')}>
             <Text style={styles.option}>Create</Text>
           </TouchableOpacity>
 

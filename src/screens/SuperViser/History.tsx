@@ -5,49 +5,48 @@ import {
   StyleSheet,
   Text,
   Image,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import Circle from '../../components/Circle';
 import appColors from '../../constants/color';
 import Header from '../../components/Header';
 import CustomDrawer from '../../components/CustomDrawer/CustomDrawer';
-import CustomDropdown from '../../components/CustomDropdown';
 import appFonts from '../../constants/font';
 
 const { width, height } = Dimensions.get('window');
 const wp = (percentage: number) => (width * percentage) / 100;
 const hp = (percentage: number) => (height * percentage) / 100;
 
-const DocDrive = ({ navigation }: any) => {
+const History = ({ navigation }: any) => {
   const complaintsData = [
     {
       image: require('../../assets/images/truckpic1.png'),
-      truckName: 'RoadMaster',
-      chassisNumber: '24883722',
-      vehicleNumber: 'ENG - 204',
-      modelYear: '2022',
+      No_of_visit: '01',
+      lastVisit: 'December 13, 2024',
+      report_problem: 'Engine Service',
+      total_cost: '$300',
     },
     {
       image: require('../../assets/images/truckpic1.png'),
-      truckName: 'CargoKing',
-      chassisNumber: '24883723',
-      vehicleNumber: 'ENG - 205',
-      modelYear: '2023',
+      No_of_visit: '02',
+      lastVisit: 'January 10, 2024',
+      report_problem: 'Brake Failure',
+      total_cost: '$450',
     },
     {
       image: require('../../assets/images/truckpic1.png'),
-      truckName: 'TrailBlazer',
-      chassisNumber: '24883724',
-      vehicleNumber: 'ENG - 206',
-      modelYear: '2021',
+      No_of_visit: '03',
+      lastVisit: 'March 8, 2024',
+      report_problem: 'Oil Change',
+      total_cost: '$120',
     },
-  ];
-
-  const options = [
-    { optionLabel: "Complete", optionBgColor: "#0A3B40", fontColor: '#fafafa' },
-    { optionLabel: "In Progress", optionBgColor: "#007BFF", fontColor: '#fafafa' },
-    { optionLabel: "Transfer", optionBgColor: "#4A4A4A", fontColor: '#fafafa' },
-    { optionLabel: "Rejected", optionBgColor: "#FF4F4F", fontColor: '#fafafa' },
+    {
+      image: require('../../assets/images/truckpic1.png'),
+      No_of_visit: '03',
+      lastVisit: 'March 8, 2024',
+      report_problem: 'Oil Change',
+      total_cost: '$120',
+    },
   ];
 
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -67,42 +66,22 @@ const DocDrive = ({ navigation }: any) => {
         {/* Header */}
         <Header
           onMenuPress={toggleDrawer}
-          title={"Complains"}
-          titleColor={"#000"}
+          title={'Complains'}
+          titleColor={'#000'}
           iconBgColor={appColors.primary}
-          iconColor={"white"}
+          iconColor={'white'}
         />
 
+        {/* Body */}
         <View style={styles.innerContainer}>
-          <View style={styles.dropdownContainer}>
-            <CustomDropdown
-              options={options}
-              defaultValue="Select Status"
-              onSelect={(val) => console.log(val)}
-            />
-          </View>
-
-          <ScrollView style={styles.cardContainer} showsVerticalScrollIndicator={false}>
+          <ScrollView
+            style={styles.cardContainer}
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+          >
             {complaintsData.map((item, index) => (
               <View key={index} style={styles.card}>
-                <View style={styles.vehicleInfo}>
-                  <View style={styles.detailRow}>
-                    <Text style={{fontFamily: appFonts.outfit_medium, fontSize: 20}}>{item.truckName}</Text>
-                  </View>
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>Chassis Number: </Text>
-                    <Text style={styles.detailValue}>{item.chassisNumber}</Text>
-                  </View>
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>Vehicle Number: </Text>
-                    <Text style={styles.detailValue}>{item.vehicleNumber}</Text>
-                  </View>
-                  <View style={styles.detailRow}>
-                    <Text style={styles.detailLabel}>Model Year: </Text>
-                    <Text style={styles.detailValue}>{item.modelYear}</Text>
-                  </View>
-                </View>
-
+                {/* Image */}
                 <View style={styles.vehicleImage}>
                   <Image
                     source={item.image}
@@ -110,22 +89,50 @@ const DocDrive = ({ navigation }: any) => {
                     resizeMode="contain"
                   />
                 </View>
+
+                {/* Info */}
+                <View style={styles.vehicleInfo}>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>Number of Visit: </Text>
+                    <Text style={styles.detailValue}>
+                      {item.No_of_visit || 'N/A'}
+                    </Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>Last Visit: </Text>
+                    <Text style={styles.detailValue}>
+                      {item.lastVisit || 'N/A'}
+                    </Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>Report Problem: </Text>
+                    <Text style={styles.detailValue}>
+                      {item.report_problem || 'N/A'}
+                    </Text>
+                  </View>
+                  <View style={styles.detailRow}>
+                    <Text style={styles.detailLabel}>Total Cost: </Text>
+                    <Text style={styles.detailValue}>
+                      {item.total_cost || 'N/A'}
+                    </Text>
+                  </View>
+                </View>
               </View>
             ))}
           </ScrollView>
         </View>
       </View>
 
-      <CustomDrawer 
-        isOpen={isDrawerOpen} 
-        closeDrawer={() => setIsDrawerOpen(false)} 
-        navigation={navigation} 
+      <CustomDrawer
+        isOpen={isDrawerOpen}
+        closeDrawer={() => setIsDrawerOpen(false)}
+        navigation={navigation}
       />
     </>
   );
 };
 
-export default DocDrive;
+export default History;
 
 const styles = StyleSheet.create({
   container: {
@@ -146,38 +153,44 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     paddingHorizontal: wp(4),
-    marginTop: hp(10),
-  },
-  dropdownContainer: {
-    marginBottom: hp(2),
+    justifyContent: 'center', // This centers the content vertically
   },
   cardContainer: {
     flex: 1,
     width: '100%',
+  },
+  scrollContent: {
+    flexGrow: 1,
+    justifyContent: 'center', // This centers the cards vertically in the scroll view
+    paddingVertical: hp(2), // Add some padding for better spacing
   },
   card: {
     width: '100%',
     borderWidth: 1.5,
     borderColor: '#D7d8d5',
     borderRadius: wp(4),
-    paddingHorizontal: wp(3),
-    paddingVertical: hp(2),
-    flexDirection: 'row',
+    padding: wp(3),
     backgroundColor: '#fff',
     marginBottom: hp(2),
-  },
-  vehicleInfo: {
-    flex: 1,
-    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderLeftWidth: wp(1.9),
+    borderLeftColor: appColors.primary,
+    minHeight: hp(18),
   },
   vehicleImage: {
-    width: wp(28),
-    justifyContent: 'center',
+    width: wp(30),
     alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: wp(4),
   },
   truckImage: {
     width: '100%',
-    height: hp(12),
+    height: hp(14),
+    borderRadius: wp(2),
+  },
+  vehicleInfo: {
+    flex: 1,
   },
   detailLabel: {
     fontSize: wp(3.6),
@@ -185,13 +198,13 @@ const styles = StyleSheet.create({
     color: '#0A3B40',
   },
   detailValue: {
-    fontSize: wp(3.6),
+    fontSize: wp(3.4),
     fontFamily: appFonts.outfit_medium,
     color: '#333',
     flex: 1,
   },
   detailRow: {
     flexDirection: 'row',
-    marginBottom: hp(1),
+    marginBottom: hp(0.8),
   },
 });
