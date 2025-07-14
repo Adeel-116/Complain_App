@@ -32,9 +32,11 @@ const LoginScreen = ({ navigation }) => {
        if (getUserName === "Hello" && getPassword === "Pakistan@123"){
          setRole("SuperVisior")
          navigation.replace('DocDrive')
+        setCredentials({ username: '', password: '' });
        }else if (getUserName === "Hello" && getPassword === "Pakistan@1234"){
         setRole("Driver")
         navigation.replace('DashBoard')
+        setCredentials({ username: '', password: '' });
        }
        else{
         setRole(null)
