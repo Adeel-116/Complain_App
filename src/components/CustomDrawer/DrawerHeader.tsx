@@ -7,17 +7,21 @@ import { useAuth } from '../../context/AuthContext';
 const { width, height } = Dimensions.get('window');
 
 const DrawerHeader = () => {
-  const {role} = useAuth();
+  const { role } = useAuth();
+
+  const data = {
+    nameText: role === 'SuperVisor'? 'David John' : role === 'Driver' ? 'Sam Jack' : 'Unknown',
+     roleText: role === 'SuperVisor'? 'SuperVisor' : role === 'Driver' ? 'Driver' : 'Unknown',
+  };
 
   return (
     <LinearGradient
       colors={['#116770', '#0A3B40']}
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
-      style={styles.drawerHeaderContainer} 
+      style={styles.drawerHeaderContainer}
     >
       <View style={styles.contentContainer}>
-
         <View style={styles.profileInfo}>
           <Image
             source={require('../../assets/images/profile-picture3.jpg')}
@@ -25,8 +29,8 @@ const DrawerHeader = () => {
           />
 
           <View style={styles.profileTextContainer}>
-            <Text style={styles.nameText}>{nameText}</Text>
-            <Text style={styles.roleText}>{roleText}</Text>
+            <Text style={styles.nameText}>{data.nameText}</Text>
+            <Text style={styles.roleText}>{data.roleText}</Text>
             <View style={styles.locationContainer}>
               <Icon name="location-on" size={16} color="#fafafa" />
               <Text style={styles.locationText} numberOfLines={2}>

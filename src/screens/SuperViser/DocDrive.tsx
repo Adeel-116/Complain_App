@@ -5,7 +5,8 @@ import {
   StyleSheet,
   Text,
   Image,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import Circle from '../../components/Circle';
 import appColors from '../../constants/color';
@@ -56,7 +57,6 @@ const DocDrive = ({ navigation }: any) => {
   return (
     <>
       <View style={styles.container}>
-        {/* Background Circles */}
         <View style={styles.circleContainerTop}>
           <Circle size={width * 0.6} color={appColors.primary} />
         </View>
@@ -64,7 +64,6 @@ const DocDrive = ({ navigation }: any) => {
           <Circle size={width * 0.8} color={appColors.primary} />
         </View>
 
-        {/* Header */}
         <Header
           onMenuPress={toggleDrawer}
           title={"Complains"}
@@ -84,10 +83,17 @@ const DocDrive = ({ navigation }: any) => {
 
           <ScrollView style={styles.cardContainer} showsVerticalScrollIndicator={false}>
             {complaintsData.map((item, index) => (
-              <View key={index} style={styles.card}>
+              <TouchableOpacity
+                key={index}
+                style={styles.card}
+                activeOpacity={0.8}
+                onPress={() => navigation.navigate('ComplainDetails')}
+              >
                 <View style={styles.vehicleInfo}>
                   <View style={styles.detailRow}>
-                    <Text style={{fontFamily: appFonts.outfit_medium, fontSize: 20}}>{item.truckName}</Text>
+                    <Text style={{ fontFamily: appFonts.outfit_medium, fontSize: 20 }}>
+                      {item.truckName}
+                    </Text>
                   </View>
                   <View style={styles.detailRow}>
                     <Text style={styles.detailLabel}>Chassis Number: </Text>
@@ -110,16 +116,16 @@ const DocDrive = ({ navigation }: any) => {
                     resizeMode="contain"
                   />
                 </View>
-              </View>
+              </TouchableOpacity>
             ))}
           </ScrollView>
         </View>
       </View>
 
-      <CustomDrawer 
-        isOpen={isDrawerOpen} 
-        closeDrawer={() => setIsDrawerOpen(false)} 
-        navigation={navigation} 
+      <CustomDrawer
+        isOpen={isDrawerOpen}
+        closeDrawer={() => setIsDrawerOpen(false)}
+        navigation={navigation}
       />
     </>
   );

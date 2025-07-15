@@ -28,9 +28,18 @@ const ComplainInfoCards = ({ complainInfo, complainNumber }) => {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.complainTitle}>
+
+            <View>
+                <Text style={styles.complainTitle}>
                 Complain No <Text style={{color: appColors.primary}}>{complainNumber}</Text>
             </Text>
+
+            <View style={styles.historyButton}>
+                    <Text>History</Text>
+                    
+            </View>
+            </View>
+            
 
             <View style={styles.cardContainer}>
                 <FlatList
@@ -97,6 +106,9 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         fontWeight: '600',
     },
+    historyButton:{
+
+    }
 });
 
 export default ComplainInfoCards;
