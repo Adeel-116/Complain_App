@@ -13,7 +13,7 @@ import Header from '../../components/Header';
 import CustomDrawer from '../../components/CustomDrawer/CustomDrawer';
 import CustomDropdown from '../../components/CustomDropdown';
 import appFonts from '../../constants/font';
-
+import { useAuth } from '../../context/AuthContext';
 const { width, height } = Dimensions.get('window');
 const wp = (percentage: number) => (width * percentage) / 100;
 const hp = (percentage: number) => (height * percentage) / 100;

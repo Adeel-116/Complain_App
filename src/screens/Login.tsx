@@ -22,15 +22,14 @@ const LoginScreen = ({ navigation }) => {
         username: '', 
         password: ''
     })
-
-    const {role, setRole} = useAuth();
+    const {setRole} = useAuth();
 
     const handleLogin = ()=>{
        const  getUserName = credentials.username
        const getPassword = credentials.password
 
        if (getUserName === "Hello" && getPassword === "Pakistan@123"){
-         setRole("SuperVisior")
+         setRole("SuperVisor")
          navigation.replace('DocDrive')
         setCredentials({ username: '', password: '' });
        }else if (getUserName === "Hello" && getPassword === "Pakistan@1234"){

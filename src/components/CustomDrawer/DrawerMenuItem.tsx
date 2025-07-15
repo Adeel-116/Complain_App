@@ -10,7 +10,7 @@ import {
 import AntIcon from 'react-native-vector-icons/AntDesign';
 import appFonts from '../../constants/font';
 import appColors from '../../constants/color';
-
+import { useAuth } from '../../context/AuthContext';
 interface DrawerMenuItemProps {
   backgroundColor: string;
   text: string;
@@ -29,6 +29,7 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
   onPress,
 }) => {
   const [expanded, setExpanded] = useState(false);
+  const {role} = useAuth();
 
   const handlePress = () => {
     if (dropdown) {
@@ -62,11 +63,15 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
 
       {expanded && dropdown && (
         <View style={styles.listItems}>
-          <TouchableOpacity onPress={() => navigation.navigate('CreateNew')}>
-            <Text style={styles.option}>Create</Text>
-          </TouchableOpacity>
-
-          <View style={styles.line} />
+          
+          {role !== 'SuperVisor' && (
+            <>
+              <TouchableOpacity onPress={() => navigation.navigate('CreateNew')}>
+                <Text style={styles.option}>Create</Text>
+              </TouchableOpacity>
+              <View style={styles.line} />
+            </>
+          )}
 
           <TouchableOpacity onPress={() => navigation.navigate('ComplainScreen')}>
             <Text style={styles.option}>List</Text>

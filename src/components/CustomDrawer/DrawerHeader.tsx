@@ -1,13 +1,14 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
-import appColors from '../../constants/color';
 import appFonts from '../../constants/font';
 import LinearGradient from 'react-native-linear-gradient';
-
+import { useAuth } from '../../context/AuthContext';
 const { width, height } = Dimensions.get('window');
 
 const DrawerHeader = () => {
+  const {role} = useAuth();
+
   return (
     <LinearGradient
       colors={['#116770', '#0A3B40']}
@@ -16,14 +17,16 @@ const DrawerHeader = () => {
       style={styles.drawerHeaderContainer} 
     >
       <View style={styles.contentContainer}>
+
         <View style={styles.profileInfo}>
           <Image
             source={require('../../assets/images/profile-picture3.jpg')}
             style={styles.profileImage}
           />
+
           <View style={styles.profileTextContainer}>
-            <Text style={styles.nameText}>Sam Jack</Text>
-            <Text style={styles.roleText}>Driver</Text>
+            <Text style={styles.nameText}>{nameText}</Text>
+            <Text style={styles.roleText}>{roleText}</Text>
             <View style={styles.locationContainer}>
               <Icon name="location-on" size={16} color="#fafafa" />
               <Text style={styles.locationText} numberOfLines={2}>
