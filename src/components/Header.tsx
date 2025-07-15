@@ -8,38 +8,51 @@ import appFonts from '../constants/font';
 const { width, height } = Dimensions.get('window');
 
 interface HeaderProps {
-  onMenuPress: () => void;
+  onMenuPress?: () => void;
+  onBackPress?: () => void;
   title?: string;
   iconColor?: string;
   titleColor?: string;
   iconBgColor?: string;
+  showBackButton?: boolean; // <-- New prop
 }
 
 const Header = ({
   onMenuPress,
+  onBackPress,
   title = "Default Title",
-  iconColor = "#ffff",
+  iconColor = "#fff",
   titleColor = "#000",
   iconBgColor = appColors.secondary,
+  showBackButton = false, 
 }: HeaderProps) => {
 
-  const insets = useSafeAreaInsets(); 
+  const insets = useSafeAreaInsets();
   const iconSize = width * 0.06;
   const boxSize = width * 0.1;
 
   return (
     <View style={[styles.innerContainer, { marginTop: insets.top }]}>
-      {/* Left - Icon Box */}
-      <TouchableOpacity onPress={onMenuPress} style={[styles.iconBox, { width: boxSize, height: boxSize, backgroundColor: iconBgColor }]}>
-        <Icon name="menu" size={iconSize} color={iconColor} />
+
+      {/* Left button: Menu or Back */}
+      <TouchableOpacity
+        onPress={showBackButton ? onBackPress : onMenuPress}
+        style={[styles.iconBox, { width: boxSize, height: boxSize, backgroundColor: iconBgColor }]}
+        activeOpacity={0.8}
+      >
+        <Icon
+          name={showBackButton ? 'arrow-left' : 'menu'}
+          size={iconSize}
+          color={iconColor}
+        />
       </TouchableOpacity>
 
-      {/* Center - Title */}
+      {/* Title */}
       <View style={styles.textContainer}>
         <Text style={[styles.title, { color: titleColor }]}>{title}</Text>
       </View>
 
-      {/* Right - Profile Image */}
+      {/* Profile Image */}
       <Image
         source={require('../assets/images/profile-picture3.jpg')}
         style={[styles.profileImage, { width: boxSize, height: boxSize, borderRadius: boxSize / 2 }]}

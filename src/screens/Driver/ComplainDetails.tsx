@@ -82,6 +82,7 @@ const ComplainDetails = ({
               <ComplainInfoCards
                 complainInfo={complainInfo}
                 complainNumber={complainNumber}
+                navigation={navigation}
               />
               <ComplainDescription />
             </View>

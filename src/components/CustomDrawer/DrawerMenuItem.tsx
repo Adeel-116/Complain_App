@@ -29,7 +29,17 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
   onPress,
 }) => {
   const [expanded, setExpanded] = useState(false);
-  const {role} = useAuth();
+  const { role } = useAuth();
+
+
+
+  const handleLogicNavigation = () => {
+    if (role === "SuperVisor") {
+      navigation.navigate("DocDrive");
+    } else if (role === "Driver") {
+      navigation.navigate("ComplainDetails");
+    }
+  };
 
   const handlePress = () => {
     if (dropdown) {
@@ -63,7 +73,7 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
 
       {expanded && dropdown && (
         <View style={styles.listItems}>
-          
+
           {role !== 'SuperVisor' && (
             <>
               <TouchableOpacity onPress={() => navigation.navigate('CreateNew')}>
@@ -73,7 +83,7 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
             </>
           )}
 
-          <TouchableOpacity onPress={() => navigation.navigate('ComplainScreen')}>
+          <TouchableOpacity onPress={handleLogicNavigation}>
             <Text style={styles.option}>List</Text>
           </TouchableOpacity>
         </View>

@@ -70,6 +70,8 @@ const History = ({ navigation }: any) => {
           titleColor={'#000'}
           iconBgColor={appColors.primary}
           iconColor={'white'}
+          showBackButton={true}
+          onBackPress={() => navigation.goBack()}
         />
 
         {/* Body */}
