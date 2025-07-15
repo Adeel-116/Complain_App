@@ -40,7 +40,6 @@ const DrawerMenuItem: React.FC<DrawerMenuItemProps> = ({
       navigation.navigate("ComplainDetails");
     }
   };
-
   const handlePress = () => {
     if (dropdown) {
       setExpanded(!expanded);

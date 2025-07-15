@@ -11,10 +11,12 @@ import {
 import appFonts from '../constants/font';
 import appColors from '../constants/color';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useAuth } from "../context/AuthContext"
+
 const { width } = Dimensions.get('window');
 const CARD_WIDTH = (width - 60) / 3;
 
-const ComplainInfoCards = ({ complainInfo, complainNumber, navigation}) => {
+const ComplainInfoCards = ({ complainInfo, complainNumber, navigation }) => {
     const renderCard = ({ item }) => (
         <View style={styles.card}>
             <Text style={styles.heading}>{item.heading}</Text>
@@ -27,26 +29,31 @@ const ComplainInfoCards = ({ complainInfo, complainNumber, navigation}) => {
         </View>
     );
 
+    const { role } = useAuth();
     return (
         <View style={styles.container}>
 
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                 <Text style={styles.complainTitle}>
                     Complain No <Text style={{ color: appColors.primary }}>{complainNumber}</Text>
                 </Text>
 
-                <TouchableOpacity onPress={() => navigation.navigate("History")}>
-                <View style={styles.historyButton}>
-                     
-                    <Text style={{color: appColors.primary, fontFamily: appFonts.outfit_medium, fontSize: 14}}>History</Text>
-                    <Icon
-                        style={{marginLeft: 3}}
-                        name={'eye'}
-                        size={13}
-                        color={appColors.primary}
-                    />
-                </View>
-                   </TouchableOpacity>
+                {
+                    (role === "SuperVisor") ? <>
+                        <TouchableOpacity onPress={() => navigation.navigate("History")}>
+                            <View style={styles.historyButton}>
+                                <Text style={{ color: appColors.primary, fontFamily: appFonts.outfit_medium, fontSize: 14 }}>History</Text>
+                                <Icon
+                                    style={{ marginLeft: 3 }}
+                                    name={'eye'}
+                                    size={13}
+                                    color={appColors.primary}
+                                />
+                            </View>
+                        </TouchableOpacity>
+                    </> : ""
+                }
+
             </View>
 
 
@@ -116,15 +123,15 @@ const styles = StyleSheet.create({
         fontWeight: '600',
     },
     historyButton: {
-        flexDirection: 'row', 
-        alignItems: 'center', 
+        flexDirection: 'row',
+        alignItems: 'center',
         justifyContent: 'center',
         marginLeft: 15,
         paddingHorizontal: 10,
         paddingVertical: 5,
         borderWidth: 2,
         borderColor: '#E5E5E5',
-        borderRadius: 20,   
+        borderRadius: 20,
     }
 });
 

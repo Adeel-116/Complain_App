@@ -10,7 +10,7 @@ const DrawerHeader = () => {
   const { role } = useAuth();
 
   const data = {
-    nameText: role === 'SuperVisor'? 'David John' : role === 'Driver' ? 'Sam Jack' : 'Unknown',
+     nameText: role === 'SuperVisor'? 'David John' : role === 'Driver' ? 'Sam Jack' : 'Unknown',
      roleText: role === 'SuperVisor'? 'SuperVisor' : role === 'Driver' ? 'Driver' : 'Unknown',
   };
 

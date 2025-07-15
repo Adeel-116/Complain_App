@@ -30,7 +30,7 @@ const LoginScreen = ({ navigation }) => {
 
        if (getUserName === "Hello" && getPassword === "Pakistan@123"){
          setRole("SuperVisor")
-         navigation.replace('DocDrive')
+         navigation.replace('DashBoard')
         setCredentials({ username: '', password: '' });
        }else if (getUserName === "Hello" && getPassword === "Pakistan@1234"){
         setRole("Driver")

@@ -34,7 +34,6 @@ const Header = ({
   return (
     <View style={[styles.innerContainer, { marginTop: insets.top }]}>
 
-      {/* Left button: Menu or Back */}
       <TouchableOpacity
         onPress={showBackButton ? onBackPress : onMenuPress}
         style={[styles.iconBox, { width: boxSize, height: boxSize, backgroundColor: iconBgColor }]}
