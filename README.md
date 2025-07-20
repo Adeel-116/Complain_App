@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="./assets/logo.png" alt="Complaint App Logo" width="160"/>
-</p>
-
 <h1 align="center">📱 Complaint Application</h1>
 
 <p align="center">
@@ -10,12 +6,6 @@
 
 <p align="center">
   Raise issues • Track requests • Manage complaint workflows
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React Native"/>
-  <img src="https://img.shields.io/badge/TypeScript-blue?style=for-the-badge&logo=typescript&logoColor=white" alt="TypeScript"/>
-  <img src="https://img.shields.io/badge/No%20Backend-999?style=for-the-badge" alt="No Backend"/>
 </p>
 
 ---
@@ -65,20 +55,6 @@
 - **State Management:** useState, useEffect
 - **Image Handling:** React Native Image Picker
 - **Note:** Currently no backend/API – local state-driven only
-
----
-
-## 🖼️ Screenshots
-
-<div align="center">
-  <h3>📱 Mobile App Preview</h3>
-  <p>
-    <img src="./assets/screen1.png" width="180" alt="Driver Home"/>
-    <img src="./assets/screen2.png" width="180" alt="Complaint Form"/>
-    <img src="./assets/screen3.png" width="180" alt="Supervisor Dashboard"/>
-    <img src="./assets/screen4.png" width="180" alt="Complaint Management"/>
-  </p>
-</div>
 
 ---
 
