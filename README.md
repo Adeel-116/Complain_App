@@ -1,97 +1,184 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+<h1 align="center">📋 Complain App </h1>
 
-# Getting Started
+<p align="center">
+  <strong>A comprehensive complaint management application for drivers and supervisors</strong>
+</p>
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+<p align="center">
+  Submit complaints • Track status • Manage reports — streamlined workflow
+</p>
 
-## Step 1: Start Metro
+<p align="center">
+  <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React Native"/>
+</p>
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+---
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+## 🧭 Table of Contents
 
-```sh
-# Using npm
-npm start
+- [✨ Features](#-features)
+- [👥 User Roles](#-user-roles)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📂 Project Structure](#-project-structure)
+- [🖼️ Screenshots](#️-screenshots)
+- [🚀 Getting Started](#-getting-started)  
+  - [📱 Frontend Setup](#-frontend-setup)
+- [🤝 Contributing](#-contributing)
+- [📧 Contact](#-contact)
+- [📄 License](#-license)
 
-# OR using Yarn
-yarn start
-```
+## 👥 User Roles
 
-## Step 2: Build and run your app
+### 🚗 Driver Features
+- **Submit Complaints**: Create new complaints with detailed descriptions
+- **Track Status**: Monitor complaint progress in real-time
+- **View History**: Access complete complaint history
+- **Upload Documents**: Attach photos and documents as evidence
+- **Receive Updates**: Get notifications on status changes
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### 👨‍💼 Supervisor Features
+- **View All Complaints**: Access comprehensive complaint dashboard
+- **Manage Status**: Update complaint status and priority levels
+- **Assign Tasks**: Delegate complaints to appropriate departments
+- **Generate Reports**: Create detailed analytics and summaries
+- **Communication Hub**: Send updates and messages to drivers
+- **Historical Analysis**: Review trends and complaint patterns
 
-### Android
+## 🛠️ Tech Stack
 
-```sh
-# Using npm
-npm run android
+- **React Native** - Cross-platform mobile development
+- **React Navigation** - Screen navigation management
+- **Native Base / React Native Elements** - UI component library
 
-# OR using Yarn
-yarn android
-```
+## 🖼️ Screenshots
 
-### iOS
+<div align="center">
+  <p>
+    <img src="./screen-shot/pic (1).png" width="180" alt="Driver Login"/>
+    <img src="./screen-shot/pic (2).png" width="180" alt="Driver Dashboard"/>
+    <img src="./screen-shot/pic (3).png" width="180" alt="Submit Complaint"/>
+    <img src="./screen-shot/pic (4).png" width="180" alt="Complaint Status"/>
+  </p>
+  
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+</div>
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+## 🚀 Getting Started
 
-```sh
-bundle install
-```
+### 📋 Prerequisites
 
-Then, and every time you update your native dependencies, run:
+Before you begin, ensure you have the following installed:
 
-```sh
-bundle exec pod install
-```
+- **Node.js** (v16 or higher)
+- **npm** or **yarn**
+- **React Native CLI**
+- **Android Studio** (for Android development)
+- **Xcode** (for iOS development - macOS only)
+- **MongoDB** (local installation or cloud instance)
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### 📱 Frontend Setup
 
-```sh
-# Using npm
-npm run ios
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/your-username/complaint-tracker-app.git
+   cd complaint-tracker-app
+   ```
 
-# OR using Yarn
-yarn ios
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+3. **Start the development server**
+   ```bash
+   # For React Native CLI
+   npx react-native run-android  # Android
+   npx react-native run-ios      # iOS (macOS only)
+   
+   # For Expo CLI (if using Expo)
+   npx expo start
+   ```
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## 🤝 Contributing
 
-## Step 3: Modify your app
+We welcome contributions to improve the ComplaintTracker app! Here's how you can help:
 
-Now that you have successfully run the app, let's make changes!
+### Getting Started with Contributions
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+1. **Fork the repository**
+   ```bash
+   git clone https://github.com/your-username/complaint-tracker-app.git
+   ```
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+2. **Create a feature branch**
+   ```bash
+   git checkout -b feature/new-feature-name
+   ```
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+3. **Make your changes**
+   - Follow React Native best practices
+   - Test both driver and supervisor interfaces
+   - Ensure responsive design
 
-## Congratulations! :tada:
+4. **Commit your changes**
+   ```bash
+   git commit -m "✨ Add new feature description"
+   ```
 
-You've successfully run and modified your React Native App. :partying_face:
+5. **Push and create a Pull Request**
+   ```bash
+   git push origin feature/new-feature-name
+   ```
 
-### Now what?
+### Development Guidelines
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+- **Code Style**: Follow ESLint and Prettier configurations
+- **Testing**: Test features on both user roles
+- **Documentation**: Update README for new features
+- **UI/UX**: Maintain consistent design across interfaces
 
-# Troubleshooting
+---
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## 📧 Contact
 
-# Learn More
+<div align="center">
 
-To learn more about React Native, take a look at the following resources:
+<h2 align="center"><strong>Your Name</strong></h2>
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+<p align="center">
+  <img src="./App_pictures/developer.jpg" width="180" alt="Developer Photo"/>
+</p>
+
+<h3 align="center">🚀 Mobile App Developer & Software Engineer</h3>
+
+[![Email](https://img.shields.io/badge/Email-your.email@gmail.com-red?style=for-the-badge&logo=gmail)](mailto:your.email@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Your%20Name-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/your-profile/)
+[![GitHub](https://img.shields.io/badge/GitHub-your--username-black?style=for-the-badge&logo=github)](https://github.com/your-username)
+
+
+*Questions about the app or need technical support? Feel free to reach out!*
+
+</div>
+
+## 📄 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+MIT License - Open source and free to use for educational and commercial purposes.
+
+
+<div align="center">
+  <h3>💙 Built with dedication to improve workplace communication</h3>
+  <p><em>Streamlining complaint management for better workplace efficiency</em></p>
+  
+  <p>
+    <strong>⭐ Star this repo if you found it useful!</strong>
+  </p>
+  
+  <p>
+    <img src="https://img.shields.io/github/stars/your-username/complaint-tracker-app?style=social" alt="GitHub Stars"/>
+    <img src="https://img.shields.io/github/forks/your-username/complaint-tracker-app?style=social" alt="GitHub Forks"/>
+  </p>
+</div>
