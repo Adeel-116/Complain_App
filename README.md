@@ -12,21 +12,6 @@
   <img src="https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React Native"/>
 </p>
 
----
-
-## 🧭 Table of Contents
-
-- [✨ Features](#-features)
-- [👥 User Roles](#-user-roles)
-- [🛠️ Tech Stack](#️-tech-stack)
-- [📂 Project Structure](#-project-structure)
-- [🖼️ Screenshots](#️-screenshots)
-- [🚀 Getting Started](#-getting-started)  
-  - [📱 Frontend Setup](#-frontend-setup)
-- [🤝 Contributing](#-contributing)
-- [📧 Contact](#-contact)
-- [📄 License](#-license)
-
 ## 👥 User Roles
 
 ### 🚗 Driver Features
@@ -155,18 +140,11 @@ We welcome contributions to improve the ComplaintTracker app! Here's how you can
 
 <div align="center">
 
-<h2 align="center"><strong>Your Name</strong></h2>
+<h2 align="center"><strong>Muhammad Adeel</strong></h2>
 
-<p align="center">
-  <img src="./App_pictures/developer.jpg" width="180" alt="Developer Photo"/>
-</p>
+<h3 align="center">🚀 Full Stack Developer</h3>
 
-<h3 align="center">🚀 Mobile App Developer & Software Engineer</h3>
-
-[![Email](https://img.shields.io/badge/Email-your.email@gmail.com-red?style=for-the-badge&logo=gmail)](mailto:your.email@gmail.com)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Your%20Name-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/your-profile/)
-[![GitHub](https://img.shields.io/badge/GitHub-your--username-black?style=for-the-badge&logo=github)](https://github.com/your-username)
-
+[![Email](https://img.shields.io/badge/adeel8128377@gmail.com-red?style=for-the-badge&logo=gmail)](mailto:your.email@gmail.com)
 
 *Questions about the app or need technical support? Feel free to reach out!*
 
@@ -178,17 +156,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 MIT License - Open source and free to use for educational and commercial purposes.
 
-
 <div align="center">
   <h3>💙 Built with dedication to improve workplace communication</h3>
   <p><em>Streamlining complaint management for better workplace efficiency</em></p>
-  
-  <p>
-    <strong>⭐ Star this repo if you found it useful!</strong>
-  </p>
-  
-  <p>
-    <img src="https://img.shields.io/github/stars/your-username/complaint-tracker-app?style=social" alt="GitHub Stars"/>
-    <img src="https://img.shields.io/github/forks/your-username/complaint-tracker-app?style=social" alt="GitHub Forks"/>
-  </p>
 </div>
