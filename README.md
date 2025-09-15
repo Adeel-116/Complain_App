@@ -54,10 +54,20 @@
 
 <div align="center">
   <p>
-    <img src="./screen-shot/pic (1).png" width="180" alt="Driver Login"/>
-    <img src="./screen-shot/pic (2).png" width="180" alt="Driver Dashboard"/>
-    <img src="./screen-shot/pic (3).png" width="180" alt="Submit Complaint"/>
-    <img src="./screen-shot/pic (4).png" width="180" alt="Complaint Status"/>
+    <img src="./screen-shots/pic(1).jpeg" width="180" alt="Driver Login"/>
+    <img src="./screen-shots/pic(2).jpeg" width="180" alt="Driver Dashboard"/>
+    <img src="./screen-shots/pic(3).jpeg" width="180" alt="Submit Complaint"/>
+    <img src="./screen-shots/pic(4).jpeg" width="180" alt="Complaint Status"/>
+    <img src="./screen-shots/pic(5).jpeg" width="180" alt="Complaint Status"/>
+    <img src="./screen-shots/pic(6).jpeg" width="180" alt="Complaint Status"/>
+    <img src="./screen-shots/pic(7).jpeg" width="180" alt="Complaint Status"/>
+    <img src="./screen-shots/pic(8).jpeg" width="180" alt="Complaint Status"/>
+    <img src="./screen-shots/pic(9).jpeg" width="180" alt="Complaint Status"/>
+    <img src="./screen-shots/pic(10).jpeg" width="180" alt="Complaint Status"/>
+    <img src="./screen-shots/pic(11).jpeg" width="180" alt="Complaint Status"/>
+    <img src="./screen-shots/pic(12).jpeg" width="180" alt="Complaint Status"/>
+    <img src="./screen-shots/pic(13).jpeg" width="180" alt="Complaint Status"/>
+    <img src="./screen-shots/pic(14).jpeg" width="180" alt="Complaint Status"/>
   </p>
   
 
